@@ -1,0 +1,1244 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Шпаргалка по Unity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Unbounded:wght@500;700&display=swap">
+<style>
+[hidden]{display:none!important}
+img{max-width:100%}
+:root{
+  --bg:#eceef1; --panel:#ffffff; --panel-2:#f5f6f8; --fg:#1b1f24; --muted:#5a636e; --line:#d6dae0;
+  --accent:#2a64c9; --accent-soft:#e3ecfb;
+  --x:#c8392f; --y:#4f8f22; --z:#2a64c9;
+  --warn:#9a5a00; --warn-bg:#fff4e0; --tip:#2f7a45; --tip-bg:#e7f5ec;
+  --key-bg:#f7f8fa; --key-line:#b9c0c9;
+  --f-display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){ :root{
+  --bg:#1c1d20; --panel:#26282c; --panel-2:#2e3035; --fg:#e7e9ec; --muted:#9ba4ae; --line:#3a3d43;
+  --accent:#6aa2ff; --accent-soft:#25334a;
+  --x:#ef6a5f; --y:#8bc95a; --z:#6aa2ff;
+  --warn:#f0b65a; --warn-bg:#3a2e1a; --tip:#7fd39a; --tip-bg:#1d3326;
+  --key-bg:#30333a; --key-line:#545a63; color-scheme:dark }}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.hero{padding-block:36px 20px}
+.axes{display:flex;gap:6px;margin-bottom:14px}
+.axes i{display:block;width:28px;height:6px;border-radius:3px}
+.axes i:nth-child(1){background:var(--x)} .axes i:nth-child(2){background:var(--y)} .axes i:nth-child(3){background:var(--z)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 10px;text-wrap:balance;letter-spacing:-.01em}
+.lead{color:var(--muted);max-width:62ch;margin:0}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-size:14px;color:var(--muted)}
+
+.bar{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;flex-direction:column;gap:10px;padding-block:10px}
+.search{position:relative}
+.search input{width:100%;font:inherit;font-size:16px;padding:10px 40px 10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--panel-2);color:var(--fg)}
+.search input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.search button{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--muted);font:inherit;font-size:20px;cursor:pointer;padding:4px 8px;border-radius:6px}
+.search button:focus-visible{outline:2px solid var(--accent)}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;padding-bottom:2px}
+nav.tabs a{flex:none;text-decoration:none;color:var(--fg);font-size:14px;padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--panel-2);white-space:nowrap}
+nav.tabs a b{font-family:var(--f-mono);font-weight:700;font-size:12px;color:var(--muted);margin-right:6px}
+nav.tabs a:hover{border-color:var(--accent)}
+nav.tabs a.on{background:var(--accent-soft);border-color:var(--accent)}
+nav.tabs a:focus-visible{outline:2px solid var(--accent)}
+
+main{padding-block:8px 64px}
+section.sec{padding-top:36px;scroll-margin-top:120px}
+.sec-head{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.code{font-family:var(--f-mono);font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+h2{font-family:var(--f-display);font-weight:500;font-size:clamp(22px,3.4vw,28px);line-height:1.2;margin:0;text-wrap:balance}
+.sec-head p{margin:0;color:var(--muted);max-width:70ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:14px;align-items:start}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;min-width:0}
+.card h3{font-size:17px;font-weight:600;margin:0 0 8px;line-height:1.3;text-wrap:balance}
+.card p{margin:0 0 8px}
+.card p:last-child,.card ol:last-child,.card ul:last-child{margin-bottom:0}
+.card ol,.card ul{margin:0 0 8px;padding-left:22px;display:flex;flex-direction:column;gap:4px}
+.card li::marker{color:var(--muted);font-variant-numeric:tabular-nums}
+.wide{grid-column:1/-1}
+
+kbd{font-family:var(--f-mono);font-size:.82em;font-weight:700;background:var(--key-bg);border:1px solid var(--key-line);border-bottom-width:3px;border-radius:5px;padding:1px 6px;white-space:nowrap;color:var(--fg)}
+.ui{font-weight:600;background:var(--panel-2);border:1px solid var(--line);border-radius:4px;padding:0 5px;white-space:nowrap}
+.path{display:inline;font-family:var(--f-mono);font-size:.86em;font-weight:500}
+.path span{display:inline-block;max-width:100%;background:var(--accent-soft);color:var(--fg);border-radius:4px;padding:1px 5px;line-height:1.4}
+.path span+span::before{content:"→ ";color:var(--muted)}
+.path span+span{margin-left:2px}
+.num{font-family:var(--f-mono);font-size:.9em;white-space:nowrap}
+
+.note{border-radius:8px;padding:10px 12px;margin-top:10px;font-size:15px}
+.note b.l{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-right:6px}
+.note.warn{background:var(--warn-bg)} .note.warn b.l{color:var(--warn)}
+.note.tip{background:var(--tip-bg)} .note.tip b.l{color:var(--tip)}
+
+.keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:8px 18px;margin:0}
+.keys div{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px dashed var(--line);min-width:0}
+.keys dt{flex:none;min-width:48px}
+.keys dd{margin:0;min-width:0}
+
+.editor{display:grid;gap:4px;grid-template-columns:1fr 2.2fr 1.2fr;grid-template-rows:auto auto auto;grid-template-areas:"h s i" "h s i" "p p i";background:var(--line);border-radius:8px;padding:4px;font-size:14px}
+.editor > div{background:var(--panel-2);border-radius:5px;padding:10px;min-width:0}
+.editor b{display:block;font-family:var(--f-mono);font-size:13px;margin-bottom:2px}
+.ed-h{grid-area:h} .ed-s{grid-area:s;min-height:140px} .ed-i{grid-area:i} .ed-p{grid-area:p}
+.ed-s .tabsrow{display:flex;gap:4px;margin-bottom:8px}
+.ed-s .tabsrow span{font-family:var(--f-mono);font-size:12px;padding:2px 8px;border-radius:4px;background:var(--panel);border:1px solid var(--line)}
+.ed-s .tabsrow span.on{border-color:var(--accent)}
+@media (max-width:620px){
+  .editor{grid-template-columns:1fr 1fr;grid-template-areas:"s s" "h i" "p p"}
+}
+
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+pre.tree{font-family:var(--f-mono);font-size:13.5px;line-height:1.6;margin:0;overflow-x:auto;background:var(--panel-2);border-radius:8px;padding:12px 14px}
+pre.tree em{font-style:normal;color:var(--muted)}
+
+.trouble{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:10px}
+.tr{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px 16px;min-width:0}
+.tr .q{font-weight:600;margin:0 0 4px}
+.tr .a{margin:0;color:var(--fg)}
+
+dl.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:10px;margin:0}
+dl.words > div{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px 16px;min-width:0}
+dl.words dt{font-weight:700;margin-bottom:2px}
+dl.words dd{margin:0;color:var(--muted)}
+
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+footer{color:var(--muted);font-size:14px;padding-block:24px 40px;border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="axes" aria-hidden="true"><i></i><i></i><i></i></div>
+    <h1>Шпаргалка по Unity</h1>
+    <p class="lead">Всё, что мы прошли в модулях 1 и 2: где что нажать, как создать объект, какие настройки за что отвечают. Если забыл что-то, найди нужный урок во вкладках или впиши слово в поиск.</p>
+    <div class="legend">
+      <span><kbd>ПКМ</kbd> правая кнопка мыши</span>
+      <span><kbd>ЛКМ</kbd> левая кнопка мыши</span>
+      <span>На Mac вместо <kbd>Ctrl</kbd> жми <kbd>Command</kbd></span>
+      <span>Версия Unity на курсе: <span class="num">2021.3.5f1</span></span>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="search">
+      <label for="q" style="position:absolute;left:-9999px">Поиск по шпаргалке</label>
+      <input id="q" type="text" inputmode="search" enterkeyhint="search" placeholder="Поиск: префаб, текстура, Tiling, свет…" autocomplete="off">
+      <button id="clear" type="button" aria-label="Очистить поиск" hidden>×</button>
+    </div>
+    <nav class="tabs" aria-label="Разделы">
+      <a href="#base"><b>★</b>Самое нужное</a>
+      <a href="#m1u1"><b>М1У1</b>Знакомство</a>
+      <a href="#m1u2"><b>М1У2</b>Группы и префабы</a>
+      <a href="#m1u3"><b>М1У3</b>Материалы</a>
+      <a href="#m1u4"><b>М1У4</b>План уровня</a>
+      <a href="#m1u5"><b>М1У5</b>Сборка и билд</a>
+      <a href="#m2u1"><b>М2У1</b>Ландшафт</a>
+      <a href="#m2u2"><b>М2У2</b>Детализация</a>
+      <a href="#m2u3"><b>М2У3</b>Свет</a>
+      <a href="#fix"><b>!</b>Если не работает</a>
+      <a href="#words"><b>Аа</b>Словарик</a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap" id="main">
+
+<section class="sec" id="base">
+  <div class="sec-head">
+    <span class="code">Всегда под рукой</span>
+    <h2>Самое нужное</h2>
+    <p>Окна редактора, горячие клавиши и как правильно хранить файлы проекта.</p>
+  </div>
+  <div class="grid">
+    <div class="card wide" data-s>
+      <h3>Пять окон Unity</h3>
+      <div class="editor" role="img" aria-label="Схема окон редактора Unity">
+        <div class="ed-h"><b>Hierarchy</b>Список объектов, которые стоят на сцене. Добавил объект, и он появился здесь.</div>
+        <div class="ed-s">
+          <div class="tabsrow"><span class="on">Scene</span><span>Game</span></div>
+          <b>Scene</b>Рабочая область: тут ты строишь уровень.
+          <b style="margin-top:8px">Game</b>Как выглядит игра после запуска кнопкой <span class="ui">Play</span>.
+        </div>
+        <div class="ed-i"><b>Inspector</b>Все компоненты и настройки выбранного объекта. Если видно не всё, растяни окно за левый край.</div>
+        <div class="ed-p"><b>Project</b>Файлы проекта (ассеты). Папка <span class="ui">Assets</span> здесь та же самая, что папка Assets на диске.</div>
+      </div>
+    </div>
+
+    <div class="card wide" data-s>
+      <h3>Горячие клавиши</h3>
+      <dl class="keys">
+        <div><dt><kbd>W</kbd></dt><dd>двигать объект (Move Tool)</dd></div>
+        <div><dt><kbd>E</kbd></dt><dd>вращать объект (Rotate Tool)</dd></div>
+        <div><dt><kbd>R</kbd></dt><dd>менять размер (Scale Tool)</dd></div>
+        <div><dt><kbd>F</kbd></dt><dd>подлететь к выбранному объекту (или двойной клик по нему в Hierarchy)</dd></div>
+        <div><dt><kbd>Ctrl</kbd>+<kbd>D</kbd></dt><dd>дублировать</dd></div>
+        <div><dt><kbd>Ctrl</kbd>+<kbd>S</kbd></dt><dd>сохранить сцену</dd></div>
+        <div><dt><kbd>Ctrl</kbd>+<kbd>Z</kbd></dt><dd>отменить последнее действие</dd></div>
+        <div><dt><kbd>Shift</kbd>+клик</dt><dd>выделить несколько объектов (так же работает <kbd>Ctrl</kbd>+клик в Hierarchy)</dd></div>
+        <div><dt>зажать <kbd>ПКМ</kbd></dt><dd>«режим полёта»: <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> вперёд, влево, назад, вправо; <kbd>Q</kbd> вниз, <kbd>E</kbd> вверх</dd></div>
+        <div><dt>зажать <kbd>V</kbd></dt><dd>прилепить объект к другому по вершине</dd></div>
+        <div><dt><kbd>Esc</kbd></dt><dd>в режиме Play освободить курсор мыши</dd></div>
+      </dl>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Как хранить папки проекта</h3>
+      <pre class="tree">UnityProjects/        <em>← на диске, где 50+ ГБ</em>
+└─ МойПроект/
+   └─ Assets/
+      ├─ Levels/
+      │  ├─ Scenes/       <em>← сцены</em>
+      │  └─ Prefabs/      <em>← префабы</em>
+      ├─ Art/
+      │  ├─ Materials/    <em>← материалы</em>
+      │  └─ Textures/     <em>← текстуры</em>
+      └─ ThirdParty/      <em>← всё скачанное</em></pre>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Три правила, которые спасают проект</h3>
+      <ol>
+        <li>Папки и файлы из Assets двигай, переименовывай и удаляй <b>только внутри Unity</b>, в окне Project. Если сделать это в проводнике, могут пропасть объекты или целый уровень.</li>
+        <li>Объекты называй <b>по-английски</b>: <span class="ui">Tree</span>, <span class="ui">Tower</span>, <span class="ui">Cube_1</span>. Если не знаешь слово, загляни в переводчик.</li>
+        <li>Ассеты и папки называй в стиле <b>PascalCase</b>, то есть слова слитно и каждое с большой буквы: <span class="ui">CrownColor</span>, <span class="ui">WallStone</span>, <span class="ui">ThirdParty</span>.</li>
+      </ol>
+      <div class="note tip"><b class="l">Не забудь</b>Сохраняй сцену почаще: <kbd>Ctrl</kbd>+<kbd>S</kbd>.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="m1u1">
+  <div class="sec-head">
+    <span class="code">Модуль 1 · Урок 1</span>
+    <h2>Знакомство с Unity</h2>
+    <p>Создаём проект, учимся ставить примитивы на сцену и управлять ими.</p>
+  </div>
+  <div class="grid">
+    <div class="card" data-s>
+      <h3>Создать новый проект</h3>
+      <ol>
+        <li>Один раз создай на диске папку <span class="ui">UnityProjects</span> (где свободно не меньше 50 ГБ).</li>
+        <li>Открой <b>Unity Hub</b> → вкладка <span class="ui">Projects</span>.</li>
+        <li>Нажми <span class="ui">New Project</span>.</li>
+        <li>Выбери шаблон <span class="ui">3D (Core)</span>.</li>
+        <li>Впиши имя проекта и укажи путь до папки UnityProjects.</li>
+        <li>Нажми <span class="ui">Create project</span>.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Создать папку в окне Project</h3>
+      <ol>
+        <li>Щёлкни по папке <span class="ui">Assets</span>.</li>
+        <li><kbd>ПКМ</kbd> по пустому месту окна Project → <span class="path"><span>Create</span><span>Folder</span></span>.</li>
+        <li>Впиши имя, например <span class="ui">Levels</span>.</li>
+        <li>Перетащи в неё папку <span class="ui">Scenes</span>.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Объект и компоненты</h3>
+      <p>Объект в Unity сам по себе пустой, как котелок. Компоненты — это ингредиенты: что положишь, то и получишь (свет, персонажа, препятствие).</p>
+      <ul>
+        <li>Компоненты объекта видны в окне <b>Inspector</b>.</li>
+        <li><span class="ui">Transform</span> (положение, поворот, размер) есть у каждого объекта, удалить его нельзя.</li>
+        <li>Убрать компонент: три точки <span class="ui">⋮</span> справа от его названия → <span class="ui">Remove Component</span>.</li>
+        <li>Вернуть удалённое: <kbd>Ctrl</kbd>+<kbd>Z</kbd>.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Создать 3D-объект (примитив)</h3>
+      <ol>
+        <li>Верхняя панель → <span class="path"><span>GameObject</span><span>3D Object</span></span>.</li>
+        <li>Выбери нужный: <span class="ui">Cube</span>, <span class="ui">Sphere</span>, <span class="ui">Cylinder</span>, <span class="ui">Capsule</span>, <span class="ui">Plane</span>.</li>
+      </ol>
+      <div class="tbl"><table>
+        <thead><tr><th>Примитив</th><th>Из него можно сделать</th></tr></thead>
+        <tbody>
+          <tr><td>Cube</td><td>стены, коробки, ступеньки</td></tr>
+          <tr><td>Sphere</td><td>мячи, планеты, снаряды, крону дерева</td></tr>
+          <tr><td>Cylinder</td><td>стволы деревьев, колёса</td></tr>
+          <tr><td>Capsule</td><td>персонажа</td></tr>
+          <tr><td>Plane</td><td>пол и стены уровня</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b class="l">Важно</b>Plane односторонний. Снизу его не видно, видна только верхняя сторона.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Переименовать объект</h3>
+      <ol>
+        <li>Выбери объект в <b>Hierarchy</b>.</li>
+        <li><kbd>ПКМ</kbd> → <span class="ui">Rename</span>.</li>
+        <li>Сотри старое имя и впиши новое, например <span class="ui">Cube_1</span>.</li>
+      </ol>
+      <div class="note tip"><b class="l">Правило</b>Имена объектов только на английском.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Двигать, вращать, менять размер</h3>
+      <ul>
+        <li><kbd>W</kbd> двигать, <kbd>E</kbd> вращать, <kbd>R</kbd> менять размер.</li>
+        <li>Каждая ось своего цвета: <b style="color:var(--x)">X — красная</b>, <b style="color:var(--y)">Y — зелёная</b>, <b style="color:var(--z)">Z — синяя</b>. Тяни за ось того цвета, по которой хочешь изменить объект.</li>
+        <li>Увеличить объект целиком: <kbd>R</kbd> → зажми <kbd>ЛКМ</kbd> на кубике в центре осей → тяни вверх (больше) или вниз (меньше).</li>
+        <li>Точные числа можно вписать в <span class="ui">Transform</span> в Inspector: <span class="ui">Position</span>, <span class="ui">Rotation</span>, <span class="ui">Scale</span>.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Дублировать и выделить несколько</h3>
+      <ol>
+        <li>Выбери объект в Hierarchy → <kbd>ПКМ</kbd> → <span class="ui">Duplicate</span> (или <kbd>Ctrl</kbd>+<kbd>D</kbd>).</li>
+        <li>Копия появляется ровно на месте оригинала, поэтому её не видно. Сдвинь её с помощью <kbd>W</kbd>.</li>
+      </ol>
+      <p>Выделить несколько: зажми <kbd>Shift</kbd> и щёлкай по объектам. Их можно двигать, вращать и масштабировать все вместе. Снять выделение: клик по пустому месту.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Режим полёта и «я потерялся»</h3>
+      <ul>
+        <li>Зажми <kbd>ПКМ</kbd> в окне Scene и лети: <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>, вниз <kbd>Q</kbd>, вверх <kbd>E</kbd>.</li>
+        <li>Потерял объект из виду: выбери его в Hierarchy и нажми <kbd>F</kbd> (или дважды щёлкни по нему). Камера сама подлетит к нему.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Удалить объект и сохранить сцену</h3>
+      <ul>
+        <li>Удалить: выбери объект(ы) в Hierarchy (несколько с <kbd>Ctrl</kbd>) → <kbd>ПКМ</kbd> → <span class="ui">Delete</span>.</li>
+        <li>Сохранить: <span class="path"><span>File</span><span>Save</span></span> или <kbd>Ctrl</kbd>+<kbd>S</kbd>.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Поменять освещение сцены</h3>
+      <ol>
+        <li>Выбери в Hierarchy <span class="ui">Directional Light</span>. Это «солнце» сцены.</li>
+        <li>Нажми <kbd>E</kbd> (вращение) и поверни его. Сцена станет светлее или темнее.</li>
+      </ol>
+      <p>В новой сцене сразу есть два объекта: <span class="ui">Main Camera</span> (камера) и <span class="ui">Directional Light</span> (свет).</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="m1u2">
+  <div class="sec-head">
+    <span class="code">Модуль 1 · Урок 2</span>
+    <h2>Игровые объекты и префабы</h2>
+    <p>Собираем сложные объекты из частей и делаем шаблоны, чтобы быстро наполнять уровень.</p>
+  </div>
+  <div class="grid">
+    <div class="card" data-s>
+      <h3>Сгруппировать объекты (правильный способ)</h3>
+      <ol>
+        <li>Выдели все части, например ствол и крону дерева.</li>
+        <li><kbd>ПКМ</kbd> по ним → <span class="ui">Create Empty Parent</span>.</li>
+        <li>Назови контейнер по-английски: <span class="ui">Tree</span>.</li>
+      </ol>
+      <div class="note warn"><b class="l">Почему не Create Empty</b>Пустой объект появится не в центре частей. Потом префаб будет ставиться на сцену криво.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Родитель и дочерние объекты</h3>
+      <ul>
+        <li>Контейнер — <b>родитель</b>, вложенные в него объекты — <b>дочерние</b> (по-английски child).</li>
+        <li>Дети двигаются вместе с родителем.</li>
+        <li>Их Transform считается от центра родителя, а не от центра сцены. Когда двигаешь весь объект, числа меняются только у родителя.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Создать префаб</h3>
+      <ol>
+        <li>Создай папку <span class="ui">Levels/Prefabs</span>.</li>
+        <li>Перетащи объект из <b>Hierarchy</b> в окно <b>Project</b> (в папку Prefabs).</li>
+        <li>Объект в Hierarchy стал <b style="color:var(--accent)">голубым</b>. Голубым отмечаются все экземпляры префаба.</li>
+      </ol>
+      <p>Префаб — это файл. Он останется на компьютере, даже если ты забыл сохранить сцену.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Поставить экземпляр префаба</h3>
+      <p>Перетащи префаб из окна <b>Project</b> в окно <b>Scene</b>. Экземпляр, в отличие от простого дубликата, связан с префабом: поменяешь префаб, и поменяются все экземпляры.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Изменить префаб: Prefab Mode</h3>
+      <p>Префаб открывается отдельно от сцены.</p>
+      <ol>
+        <li>Выбери префаб в окне <b>Project</b>.</li>
+        <li>Нажми <span class="ui">Open</span> вверху справа в Inspector (или дважды щёлкни по префабу).</li>
+        <li>Внеси изменения.</li>
+        <li>Выход: стрелочка в левом верхнем углу окна Hierarchy.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Изменить префаб: Prefab in Context</h3>
+      <p>Префаб открывается прямо среди других объектов сцены. Удобно, когда надо подогнать, например, стулья под высоту стола.</p>
+      <ol>
+        <li>Выбери любой <b>экземпляр</b> в Hierarchy.</li>
+        <li>Нажми <span class="ui">Open</span> вверху справа в Inspector.</li>
+        <li>Выход: стрелочка в левом верхнем углу Hierarchy.</li>
+      </ol>
+      <p>В обоих режимах изменения сразу попадают во все экземпляры.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Голубая полоска у экземпляра</h3>
+      <p>Ты поменял экземпляр без специального режима, и изменения ещё не попали в префаб. Новые части отмечены плюсом.</p>
+      <ol>
+        <li>Выбери изменённый экземпляр.</li>
+        <li>В Inspector вверху справа нажми <span class="ui">Overrides</span>.</li>
+        <li>Нажми <span class="ui">Apply All</span>.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Новый префаб на основе старого</h3>
+      <ol>
+        <li>Перетащи экземпляр префаба в окно Project.</li>
+        <li>В появившемся окне выбери <span class="ui">Original Prefab</span>.</li>
+      </ol>
+      <p>Старый и новый префабы никак не связаны: можно менять новый, не трогая старый.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Удалить префаб</h3>
+      <ol>
+        <li>Выбери префаб в Project → <kbd>ПКМ</kbd> → <span class="ui">Delete</span>.</li>
+        <li>Нажми <span class="ui">Delete and unpack</span>.</li>
+      </ol>
+      <p>Удалится сам префаб, а экземпляры на сцене останутся обычными объектами.</p>
+      <div class="note warn"><b class="l">Важно</b>Это действие нельзя отменить.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Осмотреть объект со всех сторон</h3>
+      <p>В правом верхнем углу окна Scene есть <b>гизмо сцены</b> — значок с осями. Щёлкни по конусу оси, чтобы посмотреть с этой стороны: <b style="color:var(--y)">зелёный (Y)</b> — вид сверху, <b style="color:var(--x)">красный (X)</b> и <b style="color:var(--z)">синий (Z)</b> — виды сбоку. Название вида написано под гизмо.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="m1u3">
+  <div class="sec-head">
+    <span class="code">Модуль 1 · Урок 3</span>
+    <h2>Материалы и текстуры</h2>
+    <p>Форму объекта задаёт полигональная сетка, а цвет и поверхность — материал. Учимся создавать материалы и накладывать текстуры.</p>
+  </div>
+  <div class="grid">
+    <div class="card" data-s>
+      <h3>Два главных компонента 3D-объекта</h3>
+      <ul>
+        <li><span class="ui">Mesh Filter</span> отвечает за <b>форму</b>: какая полигональная сетка у объекта.</li>
+        <li><span class="ui">Mesh Renderer</span> отвечает за <b>отрисовку</b>: какой у объекта материал.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Посмотреть сетку из полигонов</h3>
+      <ol>
+        <li>В правом углу окна Scene открой меню <b>Draw Mode</b> (иконка с шаром).</li>
+        <li>Выбери <span class="ui">Wireframe</span>. Видны треугольники сетки.</li>
+        <li>Чтобы вернуть обычный вид, выбери <span class="ui">Shaded</span>.</li>
+      </ol>
+      <p>Сколько полигонов: <span class="ui">Mesh Filter</span> → кружок справа от <span class="ui">Mesh</span> → информация внизу окна. Например, у сферы 768 треугольников, и это число не меняется, если её растянуть.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Создать материал</h3>
+      <ol>
+        <li>Создай папки <span class="ui">Art/Materials</span>.</li>
+        <li>Открой папку Materials → верхняя панель <span class="path"><span>Assets</span><span>Create</span><span>Material</span></span>.</li>
+        <li>Назови в стиле PascalCase: <span class="ui">CrownColor</span>, <span class="ui">WallColor</span>.</li>
+      </ol>
+      <p>На курсе используем шейдер <span class="ui">Standard</span>, он стоит по умолчанию.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Задать цвет: Albedo</h3>
+      <ol>
+        <li>Выбери материал в окне Project.</li>
+        <li>В Inspector найди <span class="ui">Albedo</span> и щёлкни по белой полоске.</li>
+        <li>На большом круге выбери цвет, на квадрате — оттенок.</li>
+      </ol>
+      <div class="note tip"><b class="l">Лайфхак</b>Знаешь код цвета? Вставь его в поле <span class="ui">Hexadecimal</span>.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Надеть материал на объект</h3>
+      <p><b>Способ 1.</b> Перетащи материал из окна Project прямо на объект в окне Scene.</p>
+      <p><b>Способ 2.</b></p>
+      <ol>
+        <li>Выбери объект → в Inspector компонент <span class="ui">Mesh Renderer</span> → <span class="ui">Materials</span>.</li>
+        <li>Нажми кружок с точкой справа от <span class="ui">Element 0</span>.</li>
+        <li>Выбери материал из списка.</li>
+      </ol>
+      <p>Для всех деревьев сразу: открой префаб в Prefab Mode и перетащи материал на крону.</p>
+      <p>Не тот материал? Тем же кружком выбери другой. Исходный называется <span class="ui">Default Material</span>.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Metallic и Smoothness</h3>
+      <p><span class="ui">Metallic</span> — металличность, <span class="ui">Smoothness</span> — гладкость. Значения от 0 до 1. Гладкое чётко отражает свет (виден блик), металл блестит сильнее, даже если шершавый.</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Предмет</th><th>Metallic</th><th>Smoothness</th></tr></thead>
+        <tbody>
+          <tr><td>Лист бумаги</td><td class="n">0</td><td class="n">0.01</td></tr>
+          <tr><td>Апельсин</td><td class="n">0</td><td class="n">0.3</td></tr>
+          <tr><td>Металлическая ручка</td><td class="n">0.9</td><td class="n">0.5</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Зеркальный материал</h3>
+      <ol>
+        <li>Создай материал <span class="ui">CrownMirror</span>.</li>
+        <li>Ползунки <span class="ui">Metallic</span> и <span class="ui">Smoothness</span> до конца вправо.</li>
+        <li>Надень на объект.</li>
+        <li>Чтобы он отражал окружение: выбери объект → <span class="ui">Add Component</span> → <span class="path"><span>Rendering</span><span>Reflection Probe</span></span>.</li>
+        <li>В Reflection Probe поставь <span class="ui">Type</span> = <span class="ui">Realtime</span>.</li>
+      </ol>
+      <div class="note warn"><b class="l">Важно</b>Reflection Probe добавляй только к объекту с зеркальным материалом.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Стеклянный (прозрачный) материал</h3>
+      <ol>
+        <li>Создай материал <span class="ui">CrownGlass</span>.</li>
+        <li><span class="ui">Rendering Mode</span> → <span class="ui">Transparent</span>.</li>
+        <li>В <span class="ui">Albedo</span> выбери белый цвет и впиши <span class="ui">A</span> (Alpha) = <span class="num">100</span>.</li>
+      </ol>
+      <p>Alpha — непрозрачность: чем меньше число, тем прозрачнее.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Светящийся материал</h3>
+      <ol>
+        <li>Создай материал <span class="ui">CrownGlow</span>.</li>
+        <li>Поставь галочку <span class="ui">Emission</span>.</li>
+        <li>Нажми на чёрную полоску справа от <span class="ui">Color</span>, выбери цвет и <span class="ui">Intensity</span> = <span class="num">3</span>.</li>
+      </ol>
+      <p>Свечение лучше видно, если сделать на сцене вечер (поверни Directional Light).</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Импортировать текстуру</h3>
+      <ol>
+        <li>Создай папку <span class="ui">Art/Textures</span>.</li>
+        <li>Скачай текстуру с платформы (задание «Текстуры для импорта»).</li>
+        <li>В Unity: <span class="path"><span>Assets</span><span>Import New Asset...</span></span>.</li>
+        <li>Найди файл → <span class="ui">Import</span>.</li>
+        <li>Перенеси текстуру в папку Textures.</li>
+      </ol>
+      <p>Подходят файлы .png, .jpg, .gif, .bmp.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Добавить текстуру в материал</h3>
+      <ol>
+        <li>Создай материал, например <span class="ui">WallStone</span>.</li>
+        <li>Нажми кружок рядом с <span class="ui">Albedo</span> и выбери текстуру.</li>
+        <li>Надень материал на объект.</li>
+      </ol>
+      <div class="note warn"><b class="l">Важно</b>Текстура кладётся <b>в материал</b>, а не на сам объект.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Текстура растянулась: Tiling</h3>
+      <ol>
+        <li>Выбери материал → раздел <span class="ui">Main Maps</span> → <span class="ui">Tiling</span>.</li>
+        <li><span class="ui">X</span> — сколько раз текстура повторится в ширину, <span class="ui">Y</span> — в длину. По умолчанию <span class="num">1; 1</span>.</li>
+        <li>Увеличивай числа, пока не станет красиво.</li>
+      </ol>
+      <p>Оттенок текстуры меняется цветом <span class="ui">Albedo</span>. Metallic и Smoothness тоже работают.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Один материал на многих объектах</h3>
+      <p>Материал — это ассет, как и префаб. Если поменять материал у одного объекта, он поменяется у <b>всех</b> объектов с этим материалом. Нужен другой цвет только для одного объекта? Создай для него отдельный материал.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="m1u4">
+  <div class="sec-head">
+    <span class="code">Модуль 1 · Урок 4 · Творческий</span>
+    <h2>Планирование уровня</h2>
+    <p>Перед тем как строить уровень, придумываем идею, записываем её в дизайн-документ и рисуем схему.</p>
+  </div>
+  <div class="grid">
+    <div class="card" data-s>
+      <h3>Как делают игру на старте</h3>
+      <p>Подготовка игры (пре-продакшн) идёт по кругу:</p>
+      <ol>
+        <li>Придумать идею.</li>
+        <li>Сделать прототип — простую модель, чтобы быстро проверить идею.</li>
+        <li>Протестировать прототип.</li>
+        <li>Исправить и снова протестировать.</li>
+      </ol>
+      <p>Первая идея не всегда лучшая, и это нормально.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Заполнить дизайн-документ</h3>
+      <ol>
+        <li>Зайди в свой Google Аккаунт.</li>
+        <li>В задании «Дизайн-документ» сделай себе копию документа.</li>
+        <li>Впиши название проекта, дату и автора.</li>
+        <li>Прочитай подсказку, удали её и впиши свой текст.</li>
+      </ol>
+      <p>Идея отвечает на 4 вопроса: какая цель у героя? Какие препятствия? Как он добивается цели? Где и когда всё происходит (сеттинг)?</p>
+      <div class="note tip"><b class="l">Ограничения</b>Жанр action-adventure. Механики: ходьба, бег, прыжки, приседания, сбор и хранение предметов.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Типы уровней</h3>
+      <ul>
+        <li><b>Линейный</b> — один путь от начала до конца. Сложность растёт от локации к локации, и нужны места, где можно передохнуть.</li>
+        <li><b>Разветвлённый</b> — есть выбор пути. Локации на разных ветках должны отличаться, иначе игрок запутается.</li>
+        <li><b>Тайные места</b> и <b>потайные ходы</b> — секреты с ценными предметами в стороне от основного маршрута.</li>
+        <li><b>Хаб</b> — большая безопасная локация: штаб, магазин, точка перед боссом.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Нарисовать схему уровня</h3>
+      <ol>
+        <li>Скачай иконки с условными обозначениями (в задании «Схема уровня»).</li>
+        <li>Нарисуй схему в <b>Google Drawings</b>: пути, локации, хаб, тайные места, старт игрока, враги, ключевые и ценные предметы, финиш.</li>
+        <li>Держи схему маленькой: 3–5 локаций, иначе не успеешь собрать прототип.</li>
+        <li>Скачай: <span class="path"><span>Файл</span><span>Скачать</span><span>Изображение PNG</span></span>.</li>
+        <li>В дизайн-документе удали подсказку в поле «Схема игрового уровня» → <span class="path"><span>Вставка</span><span>Изображение</span><span>Загрузить с компьютера</span></span>.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Взаимная проверка</h3>
+      <ol>
+        <li>«Лаборатория» → <span class="ui">+ Создать проект</span> → <span class="ui">Сайт</span>.</li>
+        <li>Загрузи скриншот → <span class="ui">Описание и публикация</span> → название и ссылка на дизайн-документ → опубликуй в «Мой класс».</li>
+        <li>Скопируй себе чек-лист из задания «Взаимная проверка» и проверь работу напарника.</li>
+        <li>Открой доступ к чек-листу: «Читатель» для всех, у кого есть ссылка.</li>
+        <li>Оставь ссылку на чек-лист в комментарии к проекту напарника и в задании на платформе.</li>
+      </ol>
+      <p>Проект напарника: своё имя в правом верхнем углу → «Мой класс» → «Проекты класса».</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Как давать обратную связь</h3>
+      <ol>
+        <li>Скажи, что понравилось больше всего.</li>
+        <li>Назови, что доработать, и предложи, как это сделать.</li>
+        <li>Оценивай проект, а не человека.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="m1u5">
+  <div class="sec-head">
+    <span class="code">Модуль 1 · Урок 5 · Творческий</span>
+    <h2>Сборка уровня, персонаж и билд</h2>
+    <p>Собираем прототип по своей схеме, добавляем персонажа и публикуем игру на платформе.</p>
+  </div>
+  <div class="grid">
+    <div class="card" data-s>
+      <h3>Скачать ассеты из Unity Asset Store</h3>
+      <ol>
+        <li>Открой страницу ассета по ссылке из задания. Проверь, что ты вошёл в аккаунт Unity.</li>
+        <li>Нажми <span class="ui">Add To My Assets</span> и согласись с лицензией.</li>
+        <li>В Unity создай папку <span class="ui">ThirdParty</span>.</li>
+        <li><span class="path"><span>Window</span><span>Package Manager</span></span>.</li>
+        <li>Слева вверху нажми <span class="ui">Packages: ...</span> → <span class="ui">My Assets</span>.</li>
+        <li>Найди пакет → <span class="ui">Download</span> → дождись → <span class="ui">Import</span>.</li>
+        <li>В окне со списком файлов нажми <span class="ui">Import</span>. Если не знаешь, что нужно, импортируй всё.</li>
+        <li>Перенеси папку пакета в ThirdParty.</li>
+      </ol>
+      <p>Нет нужного пакета в списке? Нажми стрелку обновления.</p>
+      <div class="note warn"><b class="l">Важно</b>Не меняй папки внутри скачанного пакета, иначе ассеты могут сломаться. Готовые модели обычно лежат в его папке <span class="ui">Prefabs</span>: перетащи нужную в окно Scene.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Лайфхак: префаб пола</h3>
+      <ol>
+        <li>Создай Cube и назови <span class="ui">Floor</span>.</li>
+        <li>Position: <span class="num">(0; 0; 0)</span>.</li>
+        <li>Scale: <span class="num">(10; 0.5; 10)</span>. Получится квадратный пол толщиной 0.5 м.</li>
+        <li>Сделай из него префаб.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Лайфхак: префаб коридора</h3>
+      <ol>
+        <li>Создай Cube <span class="ui">Wall</span> и вложи его в <span class="ui">Floor</span> (перетащи в Hierarchy).</li>
+        <li>Scale стены: <span class="num">(1; 5; 0.1)</span>, Position: <span class="num">(0; 3; -0.45)</span>.</li>
+        <li><kbd>Ctrl</kbd>+<kbd>D</kbd> → у копии Position: <span class="num">(0; 3; 0.45)</span>.</li>
+        <li>Перетащи Floor со стенами в Project → <span class="ui">Original Prefab</span> → назови <span class="ui">Corridor</span>.</li>
+      </ol>
+      <p>Размеры стен маленькие, потому что они вложены в пол: числа считаются от размера родителя.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Лайфхак: префаб комнаты с двумя выходами</h3>
+      <ol>
+        <li>Внутри Floor продублируй Wall и назови <span class="ui">Doorway</span>.</li>
+        <li>Rotation Y = <span class="num">90</span>, Scale <span class="num">(0.3; 5; 0.1)</span>.</li>
+        <li>Сделай 4 таких куска стены с позициями:</li>
+      </ol>
+      <div class="tbl"><table>
+        <thead><tr><th>Кусок</th><th>Position</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="n">(-0.45; 3; -0.3)</td></tr>
+          <tr><td>2</td><td class="n">(-0.45; 3; 0.3)</td></tr>
+          <tr><td>3</td><td class="n">(0.45; 3; 0.3)</td></tr>
+          <tr><td>4</td><td class="n">(0.45; 3; -0.3)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Перетащи Floor в Project → <span class="ui">Original Prefab</span> → назови <span class="ui">Room</span>.</p>
+      <div class="note tip"><b class="l">Лайфхак</b>Меняй Scale родителя, и вся комната растянется целиком.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Прилепить объект к объекту</h3>
+      <ol>
+        <li>Зажми <kbd>V</kbd>.</li>
+        <li>Наведи на нужную вершину объекта.</li>
+        <li>Тащи к вершине другого объекта, и они соединятся.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Добавить персонажа и поиграть</h3>
+      <ol>
+        <li>Скачай ассеты из задания «Тестирование прототипа» и импортируй их в проект.</li>
+        <li>Перетащи префаб <span class="ui">First Person Controller</span> на место, где должен появиться игрок.</li>
+        <li>У <span class="ui">Main Camera</span> сними галочку с компонента <span class="ui">Audio Listener</span>.</li>
+        <li>Нажми <span class="ui">Play</span> вверху редактора.</li>
+        <li><kbd>ПКМ</kbd> по экрану игры — управление камерой. <kbd>Esc</kbd> — освободить курсор.</li>
+        <li>Чтобы выйти из игры, снова нажми <span class="ui">Play</span>.</li>
+      </ol>
+      <p>Двигаться: <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>. Клавиши бега, прыжка и приседания указаны в компонентах First Person Controller в Inspector.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Собрать WebGL-билд</h3>
+      <ol>
+        <li><span class="path"><span>File</span><span>Build Settings</span></span>.</li>
+        <li><span class="ui">Add Open Scenes</span> — добавить свою сцену.</li>
+        <li>Выбери <span class="ui">WebGL</span>. Если модуля нет, нажми <span class="ui">Install with Unity Hub</span>.</li>
+        <li><span class="ui">Switch Platform</span> → дождись.</li>
+        <li><span class="ui">Player Settings...</span> → <span class="ui">Publishing Settings</span>: <span class="ui">Compression Format</span> = <span class="ui">Disabled</span>, галочка <span class="ui">Decompression Fallback</span>.</li>
+        <li>Закрой окно → <span class="ui">Build</span>.</li>
+        <li>Создай новую папку с именем игры и выбери её. <b>Не в папке Assets!</b></li>
+        <li>Жди, сборка займёт время.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Загрузить игру на платформу</h3>
+      <ol>
+        <li>Открой папку билда и выдели <b>всё её содержимое</b> (не саму папку).</li>
+        <li>Windows: <kbd>ПКМ</kbd> → <span class="path"><span>7-Zip</span><span>Добавить к архиву...</span></span> → формат Zip → OK. macOS: <kbd>ПКМ</kbd> → «Сжать».</li>
+        <li>«Лаборатория» → <span class="ui">+ Создать проект</span> → <span class="ui">Unity</span>.</li>
+        <li>«Загрузи архив WebGL» → выбери архив (не больше 300 МБ).</li>
+        <li>Добавь название, описание и обложку.</li>
+        <li>Опубликуй в классе.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Тестирование прототипа</h3>
+      <p>Тестирование — это проверка, совпадает ли то, что получилось, с тем, что ожидали. Пример: ожидали, что игрок допрыгнет до любой платформы, а на деле некоторые стоят слишком далеко.</p>
+      <ul>
+        <li>Плейтестер называет сильные и слабые стороны.</li>
+        <li>Разработчик решает, что исправить.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="m2u1">
+  <div class="sec-head">
+    <span class="code">Модуль 2 · Урок 1</span>
+    <h2>Начало работы с ландшафтом</h2>
+    <p>Планируем открытый уровень пузырьковой диаграммой и лепим рельеф объектом Terrain.</p>
+  </div>
+  <div class="grid">
+    <div class="card" data-s>
+      <h3>Правила левел-дизайна</h3>
+      <ul>
+        <li><b>Границы</b> не дают выйти за край уровня: океан, высокие горы.</li>
+        <li><b>Ориентиры</b> выделяются на фоне и показывают цель: вулкан среди одинаковых гор.</li>
+        <li>Путь к цели не должен быть прямым: пусть игрок ищет плот, чтобы переплыть реку.</li>
+        <li>Дай выбор: с возвышенности (плато, террасы) видно всю местность.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Пузырьковая диаграмма</h3>
+      <ul>
+        <li>Круги («пузыри») — локации. Размер круга показывает размер и высоту локации.</li>
+        <li>Стрелки — направление и тип дороги.</li>
+        <li>Учитывай механики персонажа: ходьба, бег, прыжки, приседания.</li>
+        <li>Рисуем в Google Drawings, не больше 5–7 локаций, с разными формами рельефа.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Создать Terrain</h3>
+      <ol>
+        <li>Новый 3D-проект в Unity Hub, имя <span class="ui">Terrain</span>.</li>
+        <li><span class="path"><span>GameObject</span><span>3D Object</span><span>Terrain</span></span>.</li>
+        <li>Отдали камеру: плоскость очень большая.</li>
+      </ol>
+      <p>Компоненты: <span class="ui">Transform</span> (положение), <span class="ui">Terrain</span> (форма, цвет, размер и все инструменты), <span class="ui">Terrain Collider</span> (твёрдость, чтобы не проваливаться).</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Инструменты компонента Terrain</h3>
+      <p>Ряд кнопок вверху компонента Terrain в Inspector:</p>
+      <ul>
+        <li><span class="ui">Paint Terrain</span> — рельеф и текстуры (кисти).</li>
+        <li><span class="ui">Paint Trees</span> — деревья.</li>
+        <li><span class="ui">Paint Details</span> — трава и цветы.</li>
+        <li><span class="ui">Terrain Settings</span> — настройки (шестерёнка).</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Уменьшить ландшафт до удобного размера</h3>
+      <ol>
+        <li>Компонент Terrain → <span class="ui">Terrain Settings</span>.</li>
+        <li>Найди раздел <span class="ui">Mesh Resolution</span>.</li>
+        <li><span class="ui">Terrain Width</span> = <span class="num">50</span>, <span class="ui">Terrain Length</span> = <span class="num">50</span>, <span class="ui">Terrain Height</span> = <span class="num">60</span>.</li>
+      </ol>
+      <p>Ширина, длина и максимальная высота. Для правдоподобия важны не настоящие размеры, а соотношение: гора должна быть намного больше персонажа.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Дать ландшафту толщину</h3>
+      <ol>
+        <li><span class="ui">Paint Terrain</span> → в списке кистей выбери <span class="ui">Set Height</span>.</li>
+        <li><span class="ui">Height</span> = <span class="num">8</span>.</li>
+        <li>Нажми <span class="ui">Flatten All</span>. Весь ландшафт поднимется на 8 м.</li>
+      </ol>
+      <div class="note tip"><b class="l">Зачем</b>Без толщины нельзя сделать впадины, озёра и ущелья.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Горы и впадины</h3>
+      <ol>
+        <li><span class="ui">Paint Terrain</span> → <span class="ui">Raise or Lower Terrain</span>.</li>
+        <li>Зажми <kbd>ЛКМ</kbd> над ландшафтом — рельеф растёт (горы, холмы).</li>
+        <li><kbd>Shift</kbd>+<kbd>ЛКМ</kbd> — рельеф опускается (впадины).</li>
+      </ol>
+      <ul>
+        <li><span class="ui">Brush Size</span> — размер кисти, подбирай под площадь.</li>
+        <li><span class="ui">Opacity</span> — сила кисти: меньше, значит мягче. Мягкой сглаживай и добавляй мелкие детали, жёсткой делай основной объём.</li>
+        <li>Кисти с мягкими краями дают плавный переход (холмы, склоны), с ровной формой — плато и террасы, острые — выступы и неровности.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Уступы (террасы) на горе</h3>
+      <ol>
+        <li>Выбери <span class="ui">Set Height</span>.</li>
+        <li>Наведи кисть на гору и нажми с <kbd>Shift</kbd>: высота этого места появится в поле <span class="ui">Height</span>.</li>
+        <li>Округли число и уменьши его на высоту прыжка игрока.</li>
+        <li>Рисуй кистью: получится ровная ступенька, на которую можно запрыгнуть.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Склон между уступами</h3>
+      <ol>
+        <li>Узнай высоту самого высокого уступа (<kbd>Shift</kbd> в Set Height).</li>
+        <li>Округли и отними <span class="num">0.5</span>. Впиши в <span class="ui">Height</span>.</li>
+        <li>Кисть <span class="ui">builtin_brush_3</span>, размер <span class="num">3</span>, Opacity <span class="num">1</span>.</li>
+        <li>Слегка проведи между двумя уступами.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Персонаж для проверки ландшафта</h3>
+      <ol>
+        <li>Создай папку <span class="ui">ThirdParty</span>.</li>
+        <li><span class="path"><span>Window</span><span>Package Manager</span></span> → <span class="ui">My Assets</span>.</li>
+        <li>Найди <span class="ui">Mini First Person Controller</span> → <span class="ui">Import</span>.</li>
+        <li>Перенеси импортированную папку в ThirdParty.</li>
+        <li>У <span class="ui">Main Camera</span> выключи <span class="ui">Audio Listener</span>.</li>
+        <li>Перетащи <span class="ui">First Person Controller</span> на место старта.</li>
+      </ol>
+      <p>Проверь: игрок нигде не застревает, ориентиры видны со старта, через границы не пройти.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="m2u2">
+  <div class="sec-head">
+    <span class="code">Модуль 2 · Урок 2</span>
+    <h2>Детализация ландшафта</h2>
+    <p>Собираем доску настроения, красим землю текстурами и добавляем воду, деревья и траву.</p>
+  </div>
+  <div class="grid">
+    <div class="card" data-s>
+      <h3>Визуальный стиль: 4 правила</h3>
+      <ol>
+        <li>Связан с историей мира игры (лор).</li>
+        <li>Подходит под сеттинг. Для ландшафта это ещё и биом: жаркий, холодный или умеренный климат.</li>
+        <li>Передаёт настроение: тёплые и холодные, тёмные и светлые цвета.</li>
+        <li>Помогает игроку ориентироваться: контрастный цвет цепляет взгляд и показывает, куда идти.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Доска настроения в Milanote</h3>
+      <ol>
+        <li>Зарегистрируйся через почту Google.</li>
+        <li>Перетащи <span class="ui">Board</span> из бокового меню, назови <span class="ui">Landscape</span>, открой двойным кликом.</li>
+        <li>Картинки: <span class="ui">Add Image</span> → <span class="ui">Upload your own</span> (до 10.2 МБ, несколько с <kbd>Shift</kbd>). Они появятся справа в <span class="ui">Unsorted</span>.</li>
+        <li>Колонки: перетащи <span class="ui">Column</span>, впиши заголовок, перетащи в неё картинки.</li>
+        <li>Удалить лишнее: выдели и нажми <kbd>Backspace</kbd>.</li>
+      </ol>
+      <p>Где брать картинки: Freepik и Unsplash (ссылки в задании). Ищи по слову, например «горы», или по категории Nature → <span class="ui">Download free</span>.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Палитра и экспорт доски</h3>
+      <ol>
+        <li>Клик по пустому месту доски → три точки → <span class="ui">Color</span> → перетащи на доску.</li>
+        <li>В меню цвета нажми <span class="ui">Color</span> и пипеткой возьми цвет с картинки.</li>
+        <li>Сделай палитру из 5–6 цветов. Код цвета потом можно вставить в Unity в поле Hexadecimal.</li>
+        <li>Готово: <span class="ui">Export</span> → <span class="ui">PDF high quality</span> → загрузи файл в задание «Создание доски настроения».</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Покрасить землю текстурой</h3>
+      <ol>
+        <li>Скачай текстуру <span class="ui">Ground (Diffuse)</span> и импортируй в <span class="ui">Art/Textures</span> через <span class="path"><span>Assets</span><span>Import New Asset...</span></span>.</li>
+        <li>Terrain → <span class="ui">Paint Terrain</span> → в списке кистей <span class="ui">Paint Texture</span>.</li>
+        <li><span class="ui">Edit Terrain Layers...</span> → <span class="ui">Create Layer</span>.</li>
+        <li>В окне выбора дважды щёлкни по текстуре Ground (Diffuse).</li>
+        <li>В Assets появился ассет <span class="ui">New Layer</span> (это Terrain Layer). Переименуй его в <span class="ui">Ground</span>.</li>
+      </ol>
+      <div class="note warn"><b class="l">Важно</b>Первый слой покрывает весь ландшафт, поэтому для него бери <b>бесшовную</b> текстуру.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Добавить неровности: Normal Map</h3>
+      <ol>
+        <li>Скачай <span class="ui">Ground (Normal)</span> и импортируй.</li>
+        <li>Выбери эту текстуру → <span class="ui">Texture Type</span> = <span class="ui">Normal Map</span> → <span class="ui">Apply</span>.</li>
+        <li>Открой ассет слоя <span class="ui">Ground</span>.</li>
+        <li>В поле <span class="ui">Normal Map</span> нажми <span class="ui">Select</span> и выбери Ground (Normal).</li>
+      </ol>
+      <p>Поиграй с <span class="ui">Normal Scale</span> (сила неровностей) и <span class="ui">Tiling Settings</span> (повторение).</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Нарисовать дорожки вторым слоем</h3>
+      <ol>
+        <li>Скачай <span class="ui">Ground Dirt (Diffuse)</span>.</li>
+        <li><span class="ui">Edit Terrain Layers...</span> → <span class="ui">Create Layer</span> → выбери текстуру.</li>
+        <li>Переименуй новый слой в <span class="ui">Path</span>.</li>
+        <li>Щёлкни по нему в списке <span class="ui">Terrain Layers</span>, выбери форму, размер и жёсткость кисти.</li>
+        <li>Рисуй пути, по которым можно пройти.</li>
+      </ol>
+      <p>Закрасил лишнее? Выбери первый (самый левый) слой и закрась поверх.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Добавить воду</h3>
+      <ol>
+        <li>В задании «Детализация ландшафта» нажми на картинку <b>Water</b>.</li>
+        <li>Импортируй из Asset Store пакет <span class="ui">Aquas Lite</span> (как в уроке М1У5) и положи в ThirdParty.</li>
+        <li>Появилась папка <span class="ui">_TerrainAutoUpgrade</span>? Её можно удалить.</li>
+        <li><span class="ui">AQUAS-Lite</span> → <span class="ui">Prefabs</span> → перетащи воду на сцену.</li>
+        <li>Подгони положение и размер под свою впадину.</li>
+      </ol>
+      <p>Цвет: <span class="ui">Main Color</span> — основной, <span class="ui">Deep Water Color</span> — на глубине.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Посадить деревья</h3>
+      <ol>
+        <li>Скачай модели деревьев из задания.</li>
+        <li>Terrain → <span class="ui">Paint Trees</span>.</li>
+        <li><span class="ui">Edit Trees...</span> → <span class="ui">Add Tree</span>.</li>
+        <li>Нажми кружок, выбери модель → <span class="ui">Add</span>.</li>
+        <li>Настрой <span class="ui">Brush Size</span>, плотность <span class="ui">Tree Density</span> и высоту <span class="ui">Tree Height</span>.</li>
+        <li>Рисуй кистью по ландшафту.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Посадить траву и цветы</h3>
+      <ol>
+        <li>Скачай текстуру травы из задания.</li>
+        <li>Terrain → <span class="ui">Paint Details</span>.</li>
+        <li><span class="ui">Edit Details...</span> → <span class="ui">Add Grass Texture</span>.</li>
+        <li>Нажми кружок, выбери текстуру травы → <span class="ui">Add</span>.</li>
+        <li>Настрой размер и жёсткость кисти и рисуй.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="m2u3">
+  <div class="sec-head">
+    <span class="code">Модуль 2 · Урок 3</span>
+    <h2>Настройка света</h2>
+    <p>Три вида источников света, время суток, фонари и прожекторы.</p>
+  </div>
+  <div class="grid">
+    <div class="card" data-s>
+      <h3>Три источника света</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Источник</th><th>Как светит</th></tr></thead>
+        <tbody>
+          <tr><td><b>Directional Light</b><br>направленный</td><td>как солнце: в одну сторону, равномерно на весь уровень</td></tr>
+          <tr><td><b>Spotlight</b><br>прожектор</td><td>в одну сторону, конусом</td></tr>
+          <tr><td><b>Point Light</b><br>точечный</td><td>во все стороны, но недалеко, как лампочка</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Зачем нужен свет на уровне</h3>
+      <ul>
+        <li><b>Геймплей.</b> В стелсе игрок прячется в тени, поэтому нужен сильный контраст света и тени.</li>
+        <li><b>Навигация.</b> Яркий свет работает как маяк и ведёт игрока.</li>
+        <li><b>Атмосфера.</b> Тёплый и яркий свет — радость и уют. Холодный и тусклый — тревога и опасность.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Три лайфхака светового дизайна</h3>
+      <ol>
+        <li>Начинай с Directional Light. Это <b>ключевой свет</b> (key light), он задаёт тон всей сцене. Потом ставь акценты точечными светами и прожекторами — это <b>заполняющий свет</b> (fill light).</li>
+        <li>Свет, который показывает важные места и путь, делай ярким и контрастным. Свет для атмосферы — мягче.</li>
+        <li>Перед работой дополни доску настроения референсами: кадрами из фильмов, фото, других игр.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Главные настройки компонента Light</h3>
+      <p>Они одинаковые у всех трёх источников:</p>
+      <ul>
+        <li><span class="ui">Type</span> — тип источника.</li>
+        <li><span class="ui">Color</span> — оттенок света.</li>
+        <li><span class="ui">Mode</span> — способ расчёта (Realtime или Baked).</li>
+        <li><span class="ui">Intensity</span> — яркость.</li>
+        <li><span class="ui">Indirect Multiplier</span> — яркость отражённого света.</li>
+        <li><span class="ui">Shadow Type</span> — какие тени.</li>
+        <li><span class="ui">Range</span> — дальность (у Point и Spot).</li>
+      </ul>
+      <p>Свет — это компонент, его можно добавить к любому объекту. Объект будет освещать всё вокруг, но сам светиться не станет.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Поменять время суток</h3>
+      <p>Выбери <span class="ui">Directional Light</span> и меняй <span class="ui">Rotation X</span> в Transform:</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Rotation X</th><th>Время</th></tr></thead>
+        <tbody>
+          <tr><td class="n">0</td><td>утро, солнце на горизонте</td></tr>
+          <tr><td class="n">90</td><td>полдень, солнце сверху</td></tr>
+          <tr><td class="n">180</td><td>закат</td></tr>
+          <tr><td class="n">между 180 и 360</td><td>ночь (<span class="num">270</span> — глубокая ночь)</td></tr>
+        </tbody>
+      </table></div>
+      <p><span class="ui">Rotation Y</span> меняет, с какой стороны светит солнце.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Точечный свет рядом с игроком</h3>
+      <ol>
+        <li><span class="path"><span>GameObject</span><span>Light</span><span>Point Light</span></span>.</li>
+        <li>Поставь рядом с игроком (смотри на его координаты).</li>
+        <li>Настрой <span class="ui">Intensity</span>, <span class="ui">Color</span> и <span class="ui">Range</span>.</li>
+      </ol>
+      <p>Range — радиус сферы, внутри которой светит лампа. Например, 10 м.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Фонарь с лампой внутри</h3>
+      <ol>
+        <li>Скачай модель фонаря из задания «Создание светового дизайна».</li>
+        <li><span class="path"><span>Assets</span><span>Import Package</span><span>Custom Package...</span></span> → выбери файл.</li>
+        <li>Найди префаб <span class="ui">CarvedPost2</span> в <span class="ui">Lantern/Prefabs</span> и поставь на сцену.</li>
+        <li>В Hierarchy перетащи Point Light внутрь фонаря.</li>
+        <li>Подвинь свет так, чтобы казалось, что светит лампа.</li>
+        <li>Примени к префабу: <span class="ui">Overrides</span> → <span class="ui">Apply All</span>.</li>
+      </ol>
+      <div class="note tip"><b class="l">Иконки мешают?</b>В окне Scene открой <span class="ui">Gizmos</span> и уменьши ползунок <span class="ui">3D Icons</span>.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Прожектор у цели игрока</h3>
+      <ol>
+        <li><span class="path"><span>GameObject</span><span>Light</span><span>Spotlight</span></span>.</li>
+        <li>Настрой <span class="ui">Range</span> и <span class="ui">Intensity</span>.</li>
+        <li>Выбери необычный цвет, чтобы было загадочно.</li>
+        <li>Поверни прожектор (<kbd>E</kbd>) так, чтобы он светил на цель.</li>
+      </ol>
+      <div class="note tip"><b class="l">Лайфхак</b>Не получается поставить свет? Поставь в нужное место простой куб и скопируй его координаты.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Запечь свет</h3>
+      <p>Запечённый свет (baked) рассчитывается заранее, а не каждую секунду игры, поэтому компьютеру легче.</p>
+      <ol>
+        <li>Выбери источник света.</li>
+        <li>В компоненте Light поставь <span class="ui">Mode</span> = <span class="ui">Baked</span>.</li>
+        <li>Повтори для всех источников.</li>
+      </ol>
+      <p>Если после этого свет пропал, открой <span class="path"><span>Window</span><span>Rendering</span><span>Lighting</span></span> и нажми <span class="ui">Generate Lighting</span>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="fix">
+  <div class="sec-head">
+    <span class="code">Помощь</span>
+    <h2>Если что-то не работает</h2>
+    <p>Частые ситуации на уроках и что с ними делать.</p>
+  </div>
+  <div class="trouble">
+    <div class="tr" data-s><p class="q">Потерял объект на сцене</p><p class="a">Выбери его в Hierarchy и нажми <kbd>F</kbd>.</p></div>
+    <div class="tr" data-s><p class="q">Сделал что-то не то</p><p class="a"><kbd>Ctrl</kbd>+<kbd>Z</kbd> отменяет последнее действие.</p></div>
+    <div class="tr" data-s><p class="q">Изменения пропали после того, как выключил игру</p><p class="a">Всё, что меняешь, пока нажата кнопка Play, не сохраняется. Сначала выйди из Play, потом меняй сцену.</p></div>
+    <div class="tr" data-s><p class="q">Дубликат «не появился»</p><p class="a">Он стоит ровно на месте оригинала. Сдвинь его клавишей <kbd>W</kbd>.</p></div>
+    <div class="tr" data-s><p class="q">Пол пропадает, если смотреть снизу</p><p class="a">Plane виден только сверху, так и должно быть.</p></div>
+    <div class="tr" data-s><p class="q">После работы в проводнике пропали объекты или сцена</p><p class="a">Файлы из Assets трогай только внутри Unity, в окне Project.</p></div>
+    <div class="tr" data-s><p class="q">Экземпляр префаба встаёт криво</p><p class="a">Скорее всего, группировал через Create Empty. Группируй через <span class="ui">Create Empty Parent</span>.</p></div>
+    <div class="tr" data-s><p class="q">Голубая полоска слева от объекта</p><p class="a">Изменения не попали в префаб: <span class="ui">Overrides</span> → <span class="ui">Apply All</span>.</p></div>
+    <div class="tr" data-s><p class="q">Настройки материала серые и не меняются</p><p class="a">Это <span class="ui">Default Material</span>, его нельзя менять. Создай свой материал.</p></div>
+    <div class="tr" data-s><p class="q">Поменял цвет у одного объекта, а поменялся у всех</p><p class="a">У них общий материал. Создай отдельный материал для этого объекта.</p></div>
+    <div class="tr" data-s><p class="q">Текстура растянута или слишком мелкая</p><p class="a">Настрой <span class="ui">Tiling</span> в материале (у Terrain Layer — <span class="ui">Tiling Settings</span>).</p></div>
+    <div class="tr" data-s><p class="q">Поверхности мелькают при движении камеры</p><p class="a">Две поверхности стоят в одном месте и спорят, какую рисовать. Чуть-чуть сдвинь один из объектов. Подробнее — в задании «Материалы и текстуры».</p></div>
+    <div class="tr" data-s><p class="q">Прохожу сквозь объекты из Asset Store</p><p class="a">У них нет коллайдера. Для прототипа это нормально, коллайдеры будут позже.</p></div>
+    <div class="tr" data-s><p class="q">В консоли жёлтые треугольники</p><p class="a">Это предупреждения. Они только советуют и работе проекта не мешают.</p></div>
+    <div class="tr" data-s><p class="q">Пишет про два Audio Listener</p><p class="a">У <span class="ui">Main Camera</span> сними галочку с <span class="ui">Audio Listener</span>: у персонажа есть своя камера.</p></div>
+    <div class="tr" data-s><p class="q">Нет пакета в Package Manager</p><p class="a">Проверь, что вошёл в аккаунт Unity и нажал Add To My Assets. Потом нажми стрелку обновления в списке My Assets.</p></div>
+    <div class="tr" data-s><p class="q">Ошибка «…incompatibility between Color Space and current settings»</p><p class="a"><span class="ui">Player Settings</span> → <span class="ui">Other Settings</span>: <span class="ui">Color Space</span> = <span class="ui">Gamma</span>, <span class="ui">Lightmap Encoding</span> = <span class="ui">Normal Quality</span>.</p></div>
+    <div class="tr" data-s><p class="q">Нет платформы WebGL</p><p class="a">В Build Settings нажми <span class="ui">Install with Unity Hub</span>.</p></div>
+    <div class="tr" data-s><p class="q">Игра на платформе не запускается</p><p class="a">Player Settings → поставь галочку <span class="ui">Decompression Fallback</span>, удали папку со старым билдом и собери заново.</p></div>
+    <div class="tr" data-s><p class="q">Не получается сделать впадину на Terrain</p><p class="a">У ландшафта нет толщины: <span class="ui">Set Height</span> → Height 8 → <span class="ui">Flatten All</span>.</p></div>
+    <div class="tr" data-s><p class="q">Кисть рисует не той текстурой</p><p class="a">Щёлкни по нужному слою в списке <span class="ui">Terrain Layers</span>.</p></div>
+    <div class="tr" data-s><p class="q">Сцена стала совсем тёмной</p><p class="a">Проверь <span class="ui">Rotation X</span> у Directional Light: от 180 до 360 — ночь.</p></div>
+  </div>
+</section>
+
+<section class="sec" id="words">
+  <div class="sec-head">
+    <span class="code">Термины</span>
+    <h2>Словарик</h2>
+    <p>Слова, которые встречались на уроках.</p>
+  </div>
+  <dl class="words">
+    <div data-s><dt>Ассет</dt><dd>Любой файл проекта в папке Assets: сцена, префаб, материал, текстура.</dd></div>
+    <div data-s><dt>Игровой объект</dt><dd>Объект, который стоит на сцене. Main Camera — игровой объект, но не ассет.</dd></div>
+    <div data-s><dt>Компонент</dt><dd>Свойство объекта: Transform, Light, Mesh Renderer и т. д. Видно в Inspector.</dd></div>
+    <div data-s><dt>Примитив</dt><dd>Встроенная 3D-фигура Unity: Cube, Sphere, Cylinder, Capsule, Plane.</dd></div>
+    <div data-s><dt>Родитель / дочерний объект</dt><dd>Контейнер и вложенные в него объекты. Дети двигаются вместе с родителем.</dd></div>
+    <div data-s><dt>Префаб</dt><dd>Шаблон объекта, хранится как ассет в Project.</dd></div>
+    <div data-s><dt>Экземпляр</dt><dd>Копия префаба на сцене, связанная с ним. Отмечается голубым.</dd></div>
+    <div data-s><dt>Рендеринг</dt><dd>Отрисовка 2D-картинки на экране по 3D-модели.</dd></div>
+    <div data-s><dt>Полигональная сетка (mesh)</dt><dd>«Скелет» 3D-объекта из треугольников. Больше полигонов — реалистичнее, но тяжелее для компьютера.</dd></div>
+    <div data-s><dt>Low poly / High poly</dt><dd>Модель с малым или большим числом полигонов.</dd></div>
+    <div data-s><dt>Материал</dt><dd>Ассет, который задаёт объекту цвет и поверхность.</dd></div>
+    <div data-s><dt>Шейдер</dt><dd>Программа, которая считает, как отрисовать объект с его материалом. У нас — Standard.</dd></div>
+    <div data-s><dt>Albedo</dt><dd>Основной цвет материала (и место для текстуры).</dd></div>
+    <div data-s><dt>Текстура</dt><dd>2D-картинка, которая передаёт рисунок поверхности: кирпичи, кору, траву.</dd></div>
+    <div data-s><dt>Бесшовная текстура</dt><dd>Текстура, куски которой незаметно переходят друг в друга при повторении.</dd></div>
+    <div data-s><dt>Normal Map</dt><dd>Карта нормалей: особая текстура с информацией о неровностях поверхности.</dd></div>
+    <div data-s><dt>Unity Asset Store</dt><dd>Магазин бесплатных и платных ассетов.</dd></div>
+    <div data-s><dt>Коллайдер</dt><dd>Невидимая сетка, которая делает объект твёрдым.</dd></div>
+    <div data-s><dt>Механики, динамика, эстетика</dt><dd>Что можно делать в игре, как это работает вместе и какие чувства вызывает.</dd></div>
+    <div data-s><dt>Прототип</dt><dd>Упрощённая версия игры, чтобы быстро проверить идею.</dd></div>
+    <div data-s><dt>Дизайн-документ</dt><dd>Документ с описанием будущей игры: идея, сеттинг, схема уровня.</dd></div>
+    <div data-s><dt>Сеттинг</dt><dd>Где и когда происходит действие игры.</dd></div>
+    <div data-s><dt>Хаб</dt><dd>Большая безопасная локация, которая соединяет другие.</dd></div>
+    <div data-s><dt>Билд (WebGL-билд)</dt><dd>Собранная игра, готовая к публикации. WebGL — для запуска в браузере.</dd></div>
+    <div data-s><dt>Terrain</dt><dd>Объект-ландшафт, из которого, как из песка, лепят рельеф.</dd></div>
+    <div data-s><dt>Terrain Layer</dt><dd>Ассет-слой, который красит поверхность Terrain. Первый слой покрывает всё.</dd></div>
+    <div data-s><dt>Биом</dt><dd>Природная зона со своими цветами, текстурами и растениями.</dd></div>
+    <div data-s><dt>Доска настроения (moodboard)</dt><dd>Коллаж из картинок и цветов, который задаёт визуальный стиль.</dd></div>
+    <div data-s><dt>Ориентир / граница</dt><dd>Ориентир показывает, куда идти. Граница не пускает за край уровня.</dd></div>
+    <div data-s><dt>Ключевой / заполняющий свет</dt><dd>Главный свет сцены (обычно Directional) и дополнительные акценты.</dd></div>
+    <div data-s><dt>Запечённый свет (baked)</dt><dd>Свет, рассчитанный заранее, а не во время игры.</dd></div>
+  </dl>
+</section>
+
+<p class="empty" id="empty" hidden>Ничего не нашлось. Попробуй другое слово, например «материал» или «Terrain».</p>
+</main>
+
+<footer>
+  <div class="wrap">Курс «Разработка игр на Unity», модули 1–2 (уроки М1У1–М2У3). Задания и гайдлайны к урокам — на платформе learn.algoritmika.org.</div>
+</footer>
+
+<script>
+(function(){
+  var q=document.getElementById('q'), clear=document.getElementById('clear'), empty=document.getElementById('empty');
+  var items=[].slice.call(document.querySelectorAll('[data-s]'));
+  var secs=[].slice.call(document.querySelectorAll('section.sec'));
+  items.forEach(function(el){ el._t=el.textContent.toLowerCase().replace(/ё/g,'е'); });
+  function run(){
+    var v=q.value.trim().toLowerCase().replace(/ё/g,'е');
+    clear.hidden=!v;
+    var words=v.split(/\s+/).filter(Boolean), any=false;
+    items.forEach(function(el){
+      var ok=!words.length||words.every(function(w){return el._t.indexOf(w)>-1});
+      el.hidden=!ok; if(ok) any=true;
+    });
+    secs.forEach(function(s){
+      var vis=s.querySelector('[data-s]:not([hidden])');
+      s.hidden=!vis;
+    });
+    empty.hidden=any;
+  }
+  q.addEventListener('input',run);
+  clear.addEventListener('click',function(){q.value='';run();q.focus();});
+
+  var links=[].slice.call(document.querySelectorAll('nav.tabs a'));
+  function mark(id){ links.forEach(function(a){ var on=a.getAttribute('href')==='#'+id; a.classList.toggle('on',on); if(on){ var nav=a.parentNode; nav.scrollLeft=a.offsetLeft-nav.offsetWidth/2+a.offsetWidth/2; } }); }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting) mark(e.target.id); });
+    },{rootMargin:'-140px 0px -60% 0px'});
+    secs.forEach(function(s){io.observe(s)});
+  }
+  links.forEach(function(a){ a.addEventListener('click',function(){
+    if(q.value){ q.value=''; run(); }
+  });});
+  if(location.hash){ var t=document.getElementById(location.hash.slice(1)); if(t){ setTimeout(function(){t.scrollIntoView();},50); } }
+})();
+</script>
+</body>
+</html>
