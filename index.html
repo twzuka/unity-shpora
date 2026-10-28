@@ -167,6 +167,24 @@ figcaption{font-size:13px;color:var(--muted);margin-top:6px}
 .flow span.a{background:var(--accent-soft);border-color:var(--accent)}
 .flow b{color:var(--muted);font-weight:400}
 
+.ue-two{display:grid;grid-template-columns:1fr 1fr auto;gap:4px;align-items:center;min-width:0}
+.ue-two i,.ue-row i.dd{font-style:normal;color:var(--ue-dim);font-size:11px}
+.ue-mod{background:var(--ue-panel);border-radius:2px;padding:1px 6px}
+.ue-mod.off{color:var(--ue-dim)}
+.ue-mod.hl{box-shadow:inset 2px 0 0 var(--ue-blue)}
+.ue-sl{display:flex;align-items:center;gap:6px;min-width:0}
+.ue-sl i{flex:1;height:4px;background:var(--ue-field);border:1px solid #191919;border-radius:2px;position:relative;min-width:30px}
+.ue-sl i::after{content:"";position:absolute;left:var(--v,0%);top:50%;width:10px;height:10px;border-radius:50%;background:#d0d0d0;transform:translate(-50%,-50%)}
+.ue-sl small{font-size:10px;color:var(--ue-dim)}
+.grad{padding:12px 14px 8px}
+.grad .gm{position:relative;height:12px;margin:0 6px}
+.grad .gm i{position:absolute;top:0;width:10px;height:12px;transform:translateX(-50%);background:#bbb;clip-path:polygon(50% 100%,0 40%,0 0,100% 0,100% 40%)}
+.grad .gm.bot i{clip-path:none;width:11px;height:11px;top:1px;border:1px solid #e6e6e6;border-radius:2px;box-sizing:border-box}
+.grad .gm i.k{background:#fff}
+.grad .gbar{height:24px;margin:2px 6px;border:1px solid #111;border-radius:2px;background-color:#ddd;background-image:var(--g),conic-gradient(#999 25%,#ddd 0 50%,#999 0 75%,#ddd 0);background-size:100% 100%,12px 12px}
+.grad .gscale{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:10.5px;color:var(--ue-dim);margin:4px 0 0}
+.ue-tex{display:inline-block;width:18px;height:18px;border-radius:2px;border:1px solid #111;background:radial-gradient(circle,#fff 0,rgba(255,255,255,.5) 40%,#222 75%);vertical-align:middle}
+
 .keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:8px 18px;margin:0}
 .keys div{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px dashed var(--line);min-width:0}
 .keys dt{flex:none;min-width:48px}
@@ -197,7 +215,7 @@ footer{color:var(--muted);font-size:14px;padding-block:24px 40px;border-top:1px 
   <div class="wrap">
     <div class="axes" aria-hidden="true"><i></i><i></i><i></i></div>
     <h1>Пособие по Unity</h1>
-    <p class="lead">Основы движка по порядку: от первого проекта до ландшафта и света. Каждая глава объясняет, зачем нужна тема, и показывает по шагам, что нажимать. Читай главы подряд или найди нужное через поиск.</p>
+    <p class="lead">Основы движка по порядку: от первого проекта до ландшафта, света и спецэффектов. Каждая глава объясняет, зачем нужна тема, и показывает по шагам, что нажимать. Читай главы подряд или найди нужное через поиск.</p>
     <div class="legend">
       <span><kbd>ПКМ</kbd> правая кнопка мыши</span>
       <span><kbd>ЛКМ</kbd> левая кнопка мыши</span>
@@ -211,7 +229,7 @@ footer{color:var(--muted);font-size:14px;padding-block:24px 40px;border-top:1px 
   <div class="wrap">
     <div class="search">
       <label for="q" style="position:absolute;left:-9999px">Поиск по пособию</label>
-      <input id="q" type="text" inputmode="search" enterkeyhint="search" placeholder="Поиск: префаб, текстура, Tiling, свет…" autocomplete="off">
+      <input id="q" type="text" inputmode="search" enterkeyhint="search" placeholder="Поиск: префаб, Tiling, свет, частицы, звук…" autocomplete="off">
       <button id="clear" type="button" aria-label="Очистить поиск" hidden>×</button>
     </div>
     <nav class="tabs" aria-label="Главы">
@@ -232,6 +250,9 @@ footer{color:var(--muted);font-size:14px;padding-block:24px 40px;border-top:1px 
       <a href="#ch14"><b>14</b>Природа</a>
       <a href="#ch15"><b>15</b>Свет</a>
       <a href="#ch16"><b>16</b>Дизайн уровня</a>
+      <a href="#ch17"><b>17</b>Частицы</a>
+      <a href="#ch18"><b>18</b>Звук</a>
+      <a href="#ch19"><b>19</b>Презентация</a>
       <a href="#keys"><b>А</b>Клавиши</a>
       <a href="#fix"><b>Б</b>Если не работает</a>
       <a href="#words"><b>В</b>Словарик</a>
@@ -270,6 +291,12 @@ footer{color:var(--muted);font-size:14px;padding-block:24px 40px;border-top:1px 
     <li><a href="#ch14"><b>14</b>Ландшафт: текстуры и природа</a></li>
     <li><a href="#ch15"><b>15</b>Свет</a></li>
     <li><a href="#ch16"><b>16</b>Основы дизайна уровня</a></li>
+  </ul>
+  <p class="toc-h">Эффекты</p>
+  <ul class="toc">
+    <li><a href="#ch17"><b>17</b>Визуальные эффекты: система частиц</a></li>
+    <li><a href="#ch18"><b>18</b>Звук в игре</a></li>
+    <li><a href="#ch19"><b>19</b>Как представить свой проект</a></li>
   </ul>
   <p class="toc-h">Приложения</p>
   <ul class="toc">
@@ -1516,6 +1543,423 @@ footer{color:var(--muted);font-size:14px;padding-block:24px 40px;border-top:1px 
   </div>
 </section>
 
+<!-- 17 -->
+<section class="sec" id="ch17">
+  <div class="sec-head">
+    <span class="code">Глава 17</span>
+    <h2>Визуальные эффекты: система частиц</h2>
+    <p>Дым, огонь, искры и снег из тысяч маленьких картинок. На примере костра.</p>
+  </div>
+  <div class="grid">
+    <div class="card" data-s>
+      <h3>Зачем нужны эффекты</h3>
+      <p>Модели, материалы и свет делают мир красивым, но неживым. В жизни вещи взаимодействуют со средой: костёр трещит, дымит и разбрасывает искры. Без этого даже хороший уровень похож на макет.</p>
+      <ul>
+        <li><b>VFX-художник</b> (художник по визуальным эффектам) делает взрывы, дым, магию, брызги.</li>
+        <li><b>Саунд-дизайнер</b> отвечает за звуки мира: шаги, ветер, шум города.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Два способа создать систему частиц</h3>
+      <figure>
+        <div class="ue ue-menu">
+          <div class="mbar"><span>Assets</span><span class="on">GameObject</span><span>Component</span></div>
+          <div class="ue-drop">
+            <ul><li>3D Object ▸</li><li class="hl">Effects ▸</li><li>Light ▸</li></ul>
+            <ul><li class="hl">Particle System</li><li>Trail</li><li>Line</li></ul>
+          </div>
+        </div>
+        <figcaption>Готовый объект: GameObject → Effects → Particle System.</figcaption>
+      </figure>
+      <ol>
+        <li><b>Готовый объект</b> через меню выше. Частицам сразу назначен <span class="ui">Default Particle Material</span>.</li>
+        <li><b>Компонент на любой объект</b>: <span class="ui">Add Component</span> → <span class="ui">Effects</span> → <span class="ui">Particle System</span>. Материала у частиц не будет.</li>
+      </ol>
+      <div class="note warn"><b class="l">Розовые частицы?</b>Розовым Unity красит всё, у чего нет материала. Назначь материал в модуле Renderer.</div>
+    </div>
+
+    <div class="card wide" data-s>
+      <h3>Как устроена система частиц</h3>
+      <figure class="diagram">
+        <svg viewBox="0 0 520 180" role="img" aria-label="Эмиттер выпускает частицы-билборды, повёрнутые к камере">
+          <path d="M120 160 L58 28 M120 160 L182 28" class="stm" stroke-dasharray="4 4"/>
+          <rect x="106" y="118" width="14" height="14" rx="2" class="fl"/>
+          <rect x="84" y="82" width="18" height="18" rx="2" class="fl"/>
+          <rect x="128" y="66" width="20" height="20" rx="2" class="fl"/>
+          <rect x="92" y="38" width="22" height="22" rx="2" class="fl"/>
+          <rect x="142" y="30" width="16" height="16" rx="2" class="fl"/>
+          <line x1="120" y1="125" x2="380" y2="88" class="stm" stroke-dasharray="2 4"/>
+          <line x1="148" y1="76" x2="380" y2="86" class="stm" stroke-dasharray="2 4"/>
+          <line x1="158" y1="38" x2="380" y2="82" class="stm" stroke-dasharray="2 4"/>
+          <circle cx="120" cy="160" r="6" class="warmf"/>
+          <text x="134" y="166">эмиттер</text>
+          <text x="196" y="24">частицы — плоские картинки</text>
+          <rect x="380" y="70" width="44" height="30" rx="4" class="st"/>
+          <path d="M424 85 L446 72 L446 98 Z" class="st"/>
+          <text x="386" y="124">камера</text>
+          <text x="222" y="146" class="m">каждая всегда повёрнута к камере</text>
+        </svg>
+        <figcaption>Эмиттер выпускает частицы. Каждая частица — 2D-картинка, которая всё время смотрит на камеру, поэтому кажется объёмной.</figcaption>
+      </figure>
+      <ul>
+        <li><span class="ui">Particle System</span> — компонент, который отвечает за эффекты из частиц.</li>
+        <li><b>Эмиттер</b> (от англ. emit — «излучать») — точка, из которой вылетают частицы. Это начало координат объекта с компонентом.</li>
+        <li><b>Билборд</b> — плоская картинка, всегда повёрнутая к камере. Тысячи таких картинок выглядят как объёмный дым, а компьютер почти не нагружается.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Предпросмотр в окне Scene</h3>
+      <figure>
+        <div class="ue">
+          <div class="ue-tabs"><span class="on">Particle Effect</span></div>
+          <div class="ue-body">
+            <div><span class="ue-btn">Pause</span> <span class="ue-btn hl">Restart</span> <span class="ue-btn">Stop</span></div>
+            <div class="ue-row"><span>Playback Speed</span><em>1.00</em></div>
+            <div class="ue-row"><span>Playback Time</span><em>2.37</em></div>
+            <div class="ue-row"><span>Particles</span><em>12</em></div>
+          </div>
+        </div>
+        <figcaption>Панель появляется в углу окна Scene, когда выбран объект с частицами.</figcaption>
+      </figure>
+      <p>Кнопками можно остановить эффект, запустить заново, замедлить. На игру это не влияет: это только просмотр в редакторе.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Модули</h3>
+      <figure>
+        <div class="ue">
+          <div class="ue-tabs"><span class="on">Inspector</span></div>
+          <div class="ue-body">
+            <div><b>☑ FireSmoke</b></div>
+            <div class="ue-comp"><span>▾ Particle System</span><span>⋮</span></div>
+            <div class="ue-row"><span>Duration</span><em>5.00</em></div>
+            <div class="ue-row"><span>Looping</span><span>☑</span></div>
+            <div class="ue-row"><span>Start Lifetime</span><span class="ue-two"><em>1</em><em>2</em><i>▾</i></span></div>
+            <div class="ue-row"><span>Start Speed</span><span class="ue-two"><em>1</em><em>2</em><i>▾</i></span></div>
+            <div class="ue-row"><span>Start Size</span><span class="ue-two"><em>0.5</em><em>3</em><i>▾</i></span></div>
+            <div class="ue-mod hl">☑ Emission</div>
+            <div class="ue-mod hl">☑ Shape</div>
+            <div class="ue-mod off">☐ Velocity over Lifetime</div>
+            <div class="ue-mod">☑ Color over Lifetime</div>
+            <div class="ue-mod off">☐ Size over Lifetime</div>
+            <div class="ue-mod hl">☑ Renderer</div>
+          </div>
+        </div>
+        <figcaption>Сверху основной модуль, ниже дополнительные. Модуль раскрывается кликом по названию.</figcaption>
+      </figure>
+      <p>Компонент разбит на модули, каждый отвечает за свою группу настроек. Дополнительные модули включают и выключают галочкой. Сразу включены Emission, Shape и Renderer.</p>
+    </div>
+
+    <div class="card wide" data-s>
+      <h3>Основной модуль</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Свойство</th><th>За что отвечает</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ui">Duration</span></td><td>сколько секунд длится один цикл эффекта</td></tr>
+          <tr><td><span class="ui">Looping</span></td><td>повторять эффект по кругу. Без галочки частицы перестанут вылетать через Duration секунд</td></tr>
+          <tr><td><span class="ui">Start Lifetime</span></td><td>сколько секунд «живёт» каждая частица, потом исчезает</td></tr>
+          <tr><td><span class="ui">Start Speed</span></td><td>скорость, с которой частица вылетает</td></tr>
+          <tr><td><span class="ui">Start Size</span></td><td>размер частицы в метрах</td></tr>
+          <tr><td><span class="ui">Start Rotation</span></td><td>поворот картинки частицы в градусах</td></tr>
+          <tr><td><span class="ui">Max Particles</span></td><td>сколько частиц может быть одновременно (по умолчанию 1000)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b class="l">Лайфхак</b>Нажми стрелку <b>▾</b> справа от свойства и выбери <span class="ui">Random Between Two Constants</span>. Тогда у каждой частицы будет случайное значение из диапазона. В жизни все частицы разные, поэтому эффект выглядит живее. <span class="ui">Constant</span> — одно значение для всех.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Emission: сколько частиц</h3>
+      <p><span class="ui">Rate over Time</span> — сколько частиц вылетает за секунду. Меньше — эффект реже и прозрачнее, больше — гуще.</p>
+      <p>Для лёгкого дымка над костром хватит <span class="num">5</span>.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Shape: форма эмиттера</h3>
+      <figure class="diagram">
+        <svg viewBox="0 0 300 160" role="img" aria-label="Конус эмиттера: Radius и Angle">
+          <ellipse cx="110" cy="25" rx="70" ry="12" class="stm" stroke-dasharray="4 4"/>
+          <path d="M82 135 L40 25 M138 135 L180 25" class="st"/>
+          <line x1="110" y1="135" x2="110" y2="30" class="stm" stroke-dasharray="3 4"/>
+          <line x1="138" y1="135" x2="138" y2="80" class="stm" stroke-dasharray="3 4"/>
+          <ellipse cx="110" cy="135" rx="28" ry="7" class="fl"/>
+          <line x1="110" y1="135" x2="138" y2="135" class="ac"/>
+          <path d="M138 85 A50 50 0 0 1 155.8 88.3" class="ac"/>
+          <text x="146" y="150">Radius</text>
+          <text x="166" y="100">Angle</text>
+        </svg>
+      </figure>
+      <ul>
+        <li><span class="ui">Shape</span> — форма: конус (Cone), сфера, коробка (Box) и другие.</li>
+        <li><span class="ui">Radius</span> — радиус основания конуса.</li>
+        <li><span class="ui">Angle</span> — насколько конус расширяется. 0 — частицы летят ровным столбом.</li>
+        <li><span class="ui">Position</span>, <span class="ui">Rotation</span>, <span class="ui">Scale</span> — где стоит эмиттер, куда повёрнут и какого он размера.</li>
+      </ul>
+      <p>Форму можно менять и прямо в окне Scene, перетаскивая точки на контуре.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Renderer: материал частиц</h3>
+      <figure>
+        <div class="ue">
+          <div class="ue-tabs"><span class="on">Inspector</span></div>
+          <div class="ue-body">
+            <div><b>FireSmoke</b> <span class="ue-dim">(Material)</span></div>
+            <div class="ue-row"><span>Shader</span><em>Particles/Standard Unlit</em></div>
+            <div class="ue-row"><span>Rendering Mode</span><em>Fade</em></div>
+            <div class="ue-row"><span>Albedo</span><span style="display:flex;gap:6px;align-items:center;min-width:0"><span class="ue-tex"></span><em style="flex:1;background:#4a4a4a"></em></span></div>
+          </div>
+        </div>
+        <figcaption>Материал для дыма: текстура облачка и тёмно-серый оттенок.</figcaption>
+      </figure>
+      <ol>
+        <li>Создай материал, <span class="ui">Shader</span> = <span class="path"><span>Particles</span><span>Standard Unlit</span></span>.</li>
+        <li>Выбери <span class="ui">Rendering Mode</span>.</li>
+        <li>В <span class="ui">Albedo</span> положи текстуру частицы (мягкое пятно на прозрачном фоне) и выбери оттенок.</li>
+        <li>Перетащи материал в поле <span class="ui">Material</span> модуля Renderer.</li>
+      </ol>
+      <ul>
+        <li><b>Fade</b> — обычная полупрозрачность: дым, пыль, туман.</li>
+        <li><b>Additive</b> — цвет частиц прибавляется к фону, и они светятся: огонь, искры, магия.</li>
+      </ul>
+    </div>
+
+    <div class="card wide" data-s>
+      <h3>Color over Lifetime: цвет за время жизни</h3>
+      <figure>
+        <div class="ue">
+          <div class="ue-tabs"><span class="on">Gradient Editor</span></div>
+          <div class="grad">
+            <div class="gm"><i style="left:0"></i><i class="k" style="left:50%"></i><i style="left:100%"></i></div>
+            <div class="gbar" style="--g:linear-gradient(90deg,rgba(70,70,70,0),rgba(70,70,70,1) 50%,rgba(140,140,140,0))"></div>
+            <div class="gm bot"><i style="left:0;background:#464646"></i><i style="left:50%;background:#464646"></i><i style="left:100%;background:#8c8c8c"></i></div>
+            <div class="gscale"><span>0% рождение</span><span>50%</span><span>100% исчезновение</span></div>
+          </div>
+        </div>
+        <figcaption>Верхние маркеры — прозрачность (Alpha), нижние — цвет. Шахматный фон виден там, где частица прозрачная.</figcaption>
+      </figure>
+      <ol>
+        <li>Включи модуль <span class="ui">Color over Lifetime</span> и кликни по полосе <span class="ui">Color</span>.</li>
+        <li>Левые маркеры — начало жизни частицы, правые — конец.</li>
+        <li>Клик по нижнему маркеру меняет цвет, по верхнему — прозрачность.</li>
+        <li>Клик по пустому месту у верхнего или нижнего края полосы добавляет маркер. Чтобы удалить маркер, утащи его за пределы окна.</li>
+      </ol>
+      <div class="note tip"><b class="l">Совет</b>Сделай частицы прозрачными в начале и в конце жизни. Тогда они плавно появляются и тают, а не возникают и пропадают резко.</div>
+    </div>
+
+    <div class="card wide" data-s>
+      <h3>Рецепт: костёр из трёх эффектов</h3>
+      <p>Каждый эффект — отдельный объект Particle System, вложенный в модель костра с Position <span class="num">(0, 0, 0)</span>. Сначала делают дым, потом по его образцу пламя и искры.</p>
+      <div class="tbl"><table>
+        <thead><tr><th></th><th>Дым</th><th>Пламя</th><th>Искры</th></tr></thead>
+        <tbody>
+          <tr><td><b>Rendering Mode</b></td><td>Fade</td><td>Additive</td><td>Additive</td></tr>
+          <tr><td><b>Цвет</b></td><td>тёмно-серый</td><td>жёлтый → оранжевый → красный</td><td>ярко-жёлтый, оранжевый</td></tr>
+          <tr><td><b>Start Lifetime</b></td><td class="n">1 … 2</td><td>короче, чем у дыма</td><td>короткая</td></tr>
+          <tr><td><b>Start Speed</b></td><td class="n">1 … 2</td><td>медленнее</td><td>быстрее, чем у дыма</td></tr>
+          <tr><td><b>Start Size</b></td><td class="n">0.5 … 3</td><td>меньше, чем у дыма</td><td>совсем маленькие</td></tr>
+          <tr><td><b>Start Rotation</b></td><td class="n">0 … 180</td><td>случайный</td><td>—</td></tr>
+          <tr><td><b>Rate over Time</b></td><td class="n">5</td><td>гуще</td><td>немного</td></tr>
+          <tr><td><b>Shape</b></td><td>Cone, Radius 0.2, Angle 25</td><td>Cone, узкий</td><td>Cone, шире</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b class="l">Важно</b>Числа зависят от размера модели. Значения для дыма подобраны для костра со Scale около <span class="num">0.5</span>. Для пламени и искр подбирай на глаз, глядя на предпросмотр.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Лайфхак: снег или дождь</h3>
+      <ol>
+        <li>Создай Particle System и подними его высоко над уровнем.</li>
+        <li><span class="ui">Rotation X</span> = <span class="num">90</span>, чтобы частицы летели вниз.</li>
+        <li>В Shape выбери <span class="ui">Box</span> и растяни Scale по X и Y на весь уровень.</li>
+        <li>Маленький Start Size, большой Rate over Time. Start Lifetime сделай таким, чтобы частицы успевали долететь до земли.</li>
+        <li>Если снег редкий, увеличь <span class="ui">Max Particles</span>.</li>
+      </ol>
+    </div>
+
+    <div class="card sum" data-s>
+      <h3>Коротко</h3>
+      <p>Particle System выпускает из эмиттера частицы-картинки. Основной модуль задаёт жизнь, скорость и размер, Emission — количество, Shape — форму, Renderer — материал, Color over Lifetime — цвет и прозрачность.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 18 -->
+<section class="sec" id="ch18">
+  <div class="sec-head">
+    <span class="code">Глава 18</span>
+    <h2>Звук в игре</h2>
+    <p>Кто слышит, кто звучит и как сделать, чтобы звук затихал вдали.</p>
+  </div>
+  <div class="grid">
+    <div class="card" data-s>
+      <h3>Слушатель и источник</h3>
+      <ul>
+        <li><span class="ui">Audio Listener</span> («слушатель») — «уши» игры. Он <b>один</b> на сцене. Обычно он стоит на Main Camera, а когда есть персонаж — на камере персонажа.</li>
+        <li><span class="ui">Audio Source</span> («источник звука») — то, что звучит. Источников <b>сколько угодно</b>, им может быть любой объект, даже сам слушатель.</li>
+      </ul>
+      <div class="note warn"><b class="l">Два слушателя</b>Если в Console жалобы на два Audio Listener, выключи лишний у Main Camera.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Добавить звук объекту</h3>
+      <ol>
+        <li>Перетащи звуковой файл (.wav, .mp3 или .ogg) в окно Project.</li>
+        <li>Выбери объект, например костёр: <span class="ui">Add Component</span> → <span class="ui">Audio</span> → <span class="ui">Audio Source</span>.</li>
+        <li>В поле <span class="ui">AudioClip</span> нажми кружок <b>⊙</b> справа и выбери звук. Или перетащи файл в поле.</li>
+        <li>Поставь галочку <span class="ui">Loop</span>, если звук должен повторяться: треск огня, шум реки.</li>
+        <li>Запусти игру и подойди к объекту.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Audio Source в Inspector</h3>
+      <figure>
+        <div class="ue">
+          <div class="ue-tabs"><span class="on">Inspector</span></div>
+          <div class="ue-body">
+            <div><b>☑ CampFire</b></div>
+            <div class="ue-comp"><span>▾ ☑ Audio Source</span><span>⋮</span></div>
+            <div class="ue-row"><span>AudioClip</span><span style="display:flex;gap:4px;align-items:center;min-width:0"><em style="flex:1">♪ CampfireCrackles</em><i class="dd">⊙</i></span></div>
+            <div class="ue-row"><span>Mute</span><span>☐</span></div>
+            <div class="ue-row"><span>Play On Awake</span><span>☑</span></div>
+            <div class="ue-row"><span>Loop</span><span>☑</span></div>
+            <div class="ue-row"><span>Volume</span><span class="ue-sl"><i style="--v:100%"></i><small>1</small></span></div>
+            <div class="ue-row"><span>Spatial Blend</span><span class="ue-sl"><small>2D</small><i style="--v:100%"></i><small>3D</small></span></div>
+            <div class="ue-mod">▾ 3D Sound Settings</div>
+            <div class="ue-row"><span>Volume Rolloff</span><em>Logarithmic Rolloff</em></div>
+            <div class="ue-row"><span>Min Distance</span><em>1</em></div>
+            <div class="ue-row"><span>Max Distance</span><em>6</em></div>
+          </div>
+        </div>
+        <figcaption>Упрощённая схема: показаны главные настройки.</figcaption>
+      </figure>
+      <ul>
+        <li><span class="ui">Play On Awake</span> — играть сразу после запуска игры.</li>
+        <li><span class="ui">Volume</span> — громкость от 0 до 1.</li>
+        <li><span class="ui">Mute</span> — выключить звук этого источника.</li>
+      </ul>
+    </div>
+
+    <div class="card wide" data-s>
+      <h3>2D или 3D звук</h3>
+      <figure class="diagram">
+        <svg viewBox="0 0 520 180" role="img" aria-label="Звук тише по мере удаления от источника">
+          <circle cx="170" cy="95" r="75" class="stm" stroke-dasharray="5 4"/>
+          <circle cx="170" cy="95" r="30" class="ac"/>
+          <path d="M160 107 L170 83 L180 107 Z" class="warmf"/>
+          <text x="170" y="14" class="m" text-anchor="middle">Max Distance</text>
+          <text x="170" y="58" class="m" text-anchor="middle">Min</text>
+          <text x="86" y="100" text-anchor="end">Audio Source</text>
+          <circle cx="188" cy="90" r="5" class="st"/><line x1="188" y1="95" x2="188" y2="112" class="st"/>
+          <circle cx="225" cy="90" r="5" class="st"/><line x1="225" y1="95" x2="225" y2="112" class="st"/>
+          <circle cx="320" cy="90" r="5" class="st"/><line x1="320" y1="95" x2="320" y2="112" class="st"/>
+          <text x="188" y="150" class="m" text-anchor="middle">громко</text>
+          <text x="225" y="130" class="m" text-anchor="middle">тише</text>
+          <text x="320" y="130" class="m" text-anchor="middle">тихо</text>
+          <text x="420" y="95" text-anchor="middle">игрок</text>
+          <text x="420" y="111" class="m" text-anchor="middle">(Audio Listener)</text>
+        </svg>
+        <figcaption>С 3D-звуком громкость зависит от расстояния до источника.</figcaption>
+      </figure>
+      <p>По умолчанию звук двумерный: его одинаково слышно в любой точке уровня, даже на другом конце карты. Чтобы звук затихал вдали, сделай его пространственным:</p>
+      <ol>
+        <li>Передвинь ползунок <span class="ui">Spatial Blend</span> до упора вправо, на <span class="ui">3D</span>.</li>
+        <li>Раскрой <span class="ui">3D Sound Settings</span> и задай <span class="ui">Max Distance</span>, например <span class="num">6</span> метров для костра.</li>
+      </ol>
+      <ul>
+        <li><span class="ui">Min Distance</span> — ближе этого расстояния звук играет на полной громкости.</li>
+        <li><span class="ui">Max Distance</span> — до этого расстояния звук затихает. Дальше он тише уже не становится.</li>
+        <li><span class="ui">Volume Rolloff</span> — как именно затихает. Выбери <span class="ui">Linear Rolloff</span>, если звук должен совсем пропадать на Max Distance.</li>
+      </ul>
+      <div class="note tip"><b class="l">Что куда</b><b>2D</b> — фоновая музыка и звуки интерфейса. <b>3D</b> — всё, что звучит в определённом месте: костёр, водопад, враг.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Звуки для атмосферы</h3>
+      <ul>
+        <li>Звук делает место живым: у костра — треск и сверчки, у реки — плеск, на горе — ветер.</li>
+        <li>Тихие фоновые звуки ставь с Loop, чтобы они не обрывались.</li>
+        <li>Звук подсказывает дорогу: игрок пойдёт на шум водопада, даже если его не видно.</li>
+        <li>Бесплатные звуки есть в Asset Store: ищи по словам <span class="ui">free sound</span> или <span class="ui">SFX</span>.</li>
+      </ul>
+    </div>
+
+    <div class="card sum" data-s>
+      <h3>Коротко</h3>
+      <p>Слушатель один, источников много. Звук объекту: Add Component → Audio → Audio Source → AudioClip → Loop. Чтобы затихал вдали: Spatial Blend на 3D и Max Distance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 19 -->
+<section class="sec" id="ch19">
+  <div class="sec-head">
+    <span class="code">Глава 19</span>
+    <h2>Как представить свой проект</h2>
+    <p>Как за пару минут рассказать о своём уровне так, чтобы было интересно.</p>
+  </div>
+  <div class="grid">
+    <div class="card" data-s>
+      <h3>Зачем показывать проект</h3>
+      <p>Когда делишься работой, получаешь отзывы и сам учишь других. Разработчики игр постоянно выступают с докладами о том, как сделали свои игры. Самая крупная такая конференция — <b>GDC</b> (Game Developers Conference). Она проходит каждый год в Сан-Франциско.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Какие бывают презентации</h3>
+      <ul>
+        <li><b>Подробная</b> — много текста на слайдах. Её можно читать без докладчика.</li>
+        <li><b>Быстрая</b> — на слайде только заголовок и картинка, остальное ты рассказываешь вслух.</li>
+      </ul>
+      <p>Чтобы за 3 минуты показать проект от идеи до результата, подходит быстрая. Заголовок слайда сразу говорит, о чём он.</p>
+    </div>
+
+    <div class="card wide" data-s>
+      <h3>Рассказывай, а не описывай</h3>
+      <figure class="diagram">
+        <svg viewBox="0 0 520 200" role="img" aria-label="Айсберг: результат, методы, идея">
+          <line x1="0" y1="60" x2="520" y2="60" class="stm"/>
+          <path d="M70 60 L190 60 L240 110 L220 170 L130 190 L50 150 L40 100 Z" class="fl" fill-opacity=".45" stroke-dasharray="5 4"/>
+          <line x1="44" y1="125" x2="234" y2="125" class="stm" stroke-dasharray="3 4"/>
+          <path d="M100 60 L130 22 L160 34 L190 60 Z" class="fl"/>
+          <text x="280" y="34">Результат</text><text x="280" y="50" class="m">виден всем</text>
+          <text x="280" y="94">Методы и инструменты</text><text x="280" y="110" class="m">видны тем, кто сам делает игры</text>
+          <text x="280" y="160">Идея</text><text x="280" y="176" class="m">видна только тебе</text>
+        </svg>
+        <figcaption>Картинку зрители увидят сами. Интереснее то, что под водой: зачем ты так сделал.</figcaption>
+      </figure>
+      <p>Не пересказывай, что на картинке: «тут гора, тут река». Расскажи то, что знаешь только ты: какая идея была в начале, почему схема уровня именно такая, откуда взялись цвета доски настроения, что было трудно.</p>
+    </div>
+
+    <div class="card" data-s>
+      <h3>О чём можно рассказать</h3>
+      <ol>
+        <li>Идея и сеттинг: где и когда всё происходит.</li>
+        <li>Схема уровня или пузырьковая диаграмма.</li>
+        <li>Доска настроения и палитра.</li>
+        <li>Ландшафт, свет и эффекты: скриншоты из Unity.</li>
+        <li>Что хочешь улучшить дальше.</li>
+      </ol>
+      <div class="note tip"><b class="l">Совет</b>Нет схемы или доски настроения? Покажи картинки, которые тебя вдохновили.</div>
+    </div>
+
+    <div class="card" data-s>
+      <h3>Когда выступают другие</h3>
+      <ul>
+        <li>Слушай внимательно и задавай вопросы о том, что зацепило.</li>
+        <li>Волноваться перед выступлением нормально. Все учатся, а без проб и ошибок научиться нельзя.</li>
+        <li>Поддерживай: начни отзыв с того, что получилось.</li>
+      </ul>
+    </div>
+
+    <div class="card sum" data-s>
+      <h3>Коротко</h3>
+      <p>Быстрая презентация: заголовок + картинка на слайде, рассказ голосом. Говори об идее и решениях, а не о том, что и так видно.</p>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="keys">
   <div class="sec-head">
     <span class="code">Приложение А</span>
@@ -1567,6 +2011,13 @@ footer{color:var(--muted);font-size:14px;padding-block:24px 40px;border-top:1px 
     <div class="tr" data-s><p class="q">Не получается сделать впадину</p><p class="a">Сначала дай земле толщину: <span class="ui">Set Height</span> → <span class="ui">Flatten All</span>.</p></div>
     <div class="tr" data-s><p class="q">Кисть красит не той текстурой</p><p class="a">Выбери нужный слой в <span class="ui">Terrain Layers</span>.</p></div>
     <div class="tr" data-s><p class="q">Сцена стала совсем тёмной</p><p class="a">Проверь <span class="ui">Rotation X</span> у Directional Light: от 180 до 360 — ночь.</p></div>
+    <div class="tr" data-s><p class="q">Частицы розовые</p><p class="a">У них нет материала. Назначь его в поле <span class="ui">Material</span> модуля Renderer.</p></div>
+    <div class="tr" data-s><p class="q">Частицы — квадраты с фоном</p><p class="a">В материале частиц поставь <span class="ui">Rendering Mode</span> = Fade или Additive и проверь, что у текстуры прозрачный фон.</p></div>
+    <div class="tr" data-s><p class="q">Эффект проиграл один раз и пропал</p><p class="a">Включи <span class="ui">Looping</span> в основном модуле.</p></div>
+    <div class="tr" data-s><p class="q">Частицы появляются и исчезают резко</p><p class="a">В <span class="ui">Color over Lifetime</span> сделай прозрачными начало и конец.</p></div>
+    <div class="tr" data-s><p class="q">Звук одинаково громкий везде</p><p class="a"><span class="ui">Spatial Blend</span> = 3D и задай <span class="ui">Max Distance</span>.</p></div>
+    <div class="tr" data-s><p class="q">Звук затихает, но не пропадает</p><p class="a"><span class="ui">Volume Rolloff</span> = <span class="ui">Linear Rolloff</span>.</p></div>
+    <div class="tr" data-s><p class="q">Звука нет совсем</p><p class="a">Проверь AudioClip, Mute, Volume и Play On Awake. В окне Game не должна быть нажата кнопка <span class="ui">Mute Audio</span>.</p></div>
   </div>
 </section>
 
@@ -1605,6 +2056,14 @@ footer{color:var(--muted);font-size:14px;padding-block:24px 40px;border-top:1px 
     <div data-s><dt>Moodboard</dt><dd>Доска настроения: коллаж-референс стиля.</dd></div>
     <div data-s><dt>Ключевой / заполняющий свет</dt><dd>Главный источник сцены и дополнительные акценты.</dd></div>
     <div data-s><dt>Baked-свет</dt><dd>Свет, рассчитанный заранее.</dd></div>
+    <div data-s><dt>VFX</dt><dd>Визуальные эффекты: дым, огонь, взрывы, магия.</dd></div>
+    <div data-s><dt>Система частиц</dt><dd>Компонент Particle System, который делает эффекты из множества частиц.</dd></div>
+    <div data-s><dt>Эмиттер</dt><dd>Точка или фигура, из которой вылетают частицы.</dd></div>
+    <div data-s><dt>Билборд</dt><dd>Плоская картинка, всегда повёрнутая к камере.</dd></div>
+    <div data-s><dt>Audio Listener</dt><dd>«Уши» игры, один на сцене.</dd></div>
+    <div data-s><dt>Audio Source</dt><dd>Компонент, который проигрывает звук.</dd></div>
+    <div data-s><dt>3D-звук</dt><dd>Звук, который тише вдали и слышен с нужной стороны.</dd></div>
+    <div data-s><dt>Саунд-дизайнер</dt><dd>Специалист по звукам игры.</dd></div>
   </dl>
 </section>
 
